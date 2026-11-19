@@ -1,0 +1,1116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WatchFace width="480" height="480">
+    <Metadata key="CLOCK_TYPE" value="DIGITAL" />
+    <Metadata key="PREVIEW_TIME" value="19:45:53" />
+    <Metadata key="STEP_COUNT" value="7549" />
+
+    <UserConfigurations>
+        <ColorConfiguration id="colorTheme" displayName="cfg_color_label" defaultValue="amber">
+            <ColorOption id="white" displayName="cfg_color_white" colors="#FFFFFFFF #FF555555" />
+            <ColorOption id="green" displayName="cfg_color_green" colors="#FF4ADE80 #FF164E2E" />
+            <ColorOption id="amber" displayName="cfg_color_amber" colors="#FFFFB03B #FF5C3D12" />
+            <ColorOption id="cyan" displayName="cfg_color_cyan" colors="#FF38BDF8 #FF134763" />
+        </ColorConfiguration>
+
+        <ListConfiguration id="fontChoice" displayName="cfg_font_label" defaultValue="orbitron">
+            <ListOption id="orbitron" displayName="cfg_font_orbitron" />
+            <ListOption id="outfit" displayName="cfg_font_outfit" />
+            <ListOption id="space_grotesk" displayName="cfg_font_space" />
+            <ListOption id="share_tech_mono" displayName="cfg_font_mono" />
+            <ListOption id="SYNC_TO_DEVICE" displayName="cfg_font_system" />
+        </ListConfiguration>
+
+        <ListConfiguration id="secondsRing" displayName="cfg_seconds_ring_label" defaultValue="ticks_fill">
+            <ListOption id="off" displayName="cfg_ring_off" />
+            <ListOption id="ticks_fill" displayName="cfg_ring_ticks_fill" />
+            <ListOption id="dot" displayName="cfg_ring_dot" />
+            <ListOption id="arc" displayName="cfg_ring_arc" />
+            <ListOption id="static" displayName="cfg_ring_static" />
+        </ListConfiguration>
+
+        <BooleanConfiguration id="showSeconds" displayName="cfg_show_seconds_label" defaultValue="TRUE" />
+        <BooleanConfiguration id="showRaster" displayName="cfg_show_raster_label" defaultValue="TRUE" />
+        <BooleanConfiguration id="showGhost" displayName="cfg_show_ghost_label" defaultValue="TRUE" />
+
+        <ListConfiguration id="weatherRow" displayName="cfg_weather_row_label" defaultValue="days">
+            <ListOption id="days" displayName="cfg_weather_row_days" />
+            <ListOption id="desc" displayName="cfg_weather_row_desc" />
+        </ListConfiguration>
+
+        <ListConfiguration id="rightSlot" displayName="cfg_right_slot_label" defaultValue="bpm">
+            <ListOption id="bpm" displayName="cfg_right_bpm" />
+            <ListOption id="gemini" displayName="cfg_right_gemini" />
+        </ListConfiguration>
+    </UserConfigurations>
+
+    <Scene backgroundColor="#FF000000">
+        <!-- Outer Bezel Ticks (Static base) -->
+        <Condition>
+            <Expressions>
+                <Expression name="isStatic">[CONFIGURATION.secondsRing] == "static"</Expression>
+                <Expression name="isTicksFill">[CONFIGURATION.secondsRing] == "ticks_fill"</Expression>
+            </Expressions>
+            <Compare expression="isStatic || isTicksFill">
+                <Group x="0" y="0" width="480" height="480" alpha="255">
+                    <Variant target="alpha" value="0" mode="AMBIENT" />
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="0">
+                        <Rectangle x="239" y="6" width="3" height="12">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="6">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="12">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="18">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="24">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="30">
+                        <Rectangle x="239" y="6" width="3" height="12">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="36">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="42">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="48">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="54">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="60">
+                        <Rectangle x="239" y="6" width="3" height="12">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="66">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="72">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="78">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="84">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="90">
+                        <Rectangle x="239" y="6" width="3" height="12">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="96">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="102">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="108">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="114">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="120">
+                        <Rectangle x="239" y="6" width="3" height="12">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="126">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="132">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="138">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="144">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="150">
+                        <Rectangle x="239" y="6" width="3" height="12">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="156">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="162">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="168">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="174">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="180">
+                        <Rectangle x="239" y="6" width="3" height="12">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="186">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="192">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="198">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="204">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="210">
+                        <Rectangle x="239" y="6" width="3" height="12">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="216">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="222">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="228">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="234">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="240">
+                        <Rectangle x="239" y="6" width="3" height="12">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="246">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="252">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="258">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="264">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="270">
+                        <Rectangle x="239" y="6" width="3" height="12">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="276">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="282">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="288">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="294">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="300">
+                        <Rectangle x="239" y="6" width="3" height="12">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="306">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="312">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="318">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="324">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="330">
+                        <Rectangle x="239" y="6" width="3" height="12">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="336">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="342">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="348">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="354">
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.1]" />
+                        </Rectangle>
+                    </PartDraw>
+                </Group>
+            </Compare>
+        </Condition>
+        <!-- Outer Bezel Ticks (Filling up to current second) -->
+        <Condition>
+            <Expressions>
+                <Expression name="isTicksFill2">[CONFIGURATION.secondsRing] == "ticks_fill"</Expression>
+            </Expressions>
+            <Compare expression="isTicksFill2">
+                <Group x="0" y="0" width="480" height="480" alpha="255">
+                    <Variant target="alpha" value="0" mode="AMBIENT" />
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="0" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 0) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="3" height="12">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="6" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 1) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="12" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 2) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="18" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 3) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="24" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 4) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="30" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 5) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="3" height="12">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="36" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 6) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="42" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 7) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="48" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 8) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="54" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 9) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="60" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 10) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="3" height="12">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="66" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 11) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="72" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 12) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="78" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 13) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="84" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 14) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="90" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 15) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="3" height="12">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="96" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 16) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="102" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 17) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="108" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 18) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="114" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 19) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="120" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 20) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="3" height="12">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="126" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 21) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="132" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 22) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="138" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 23) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="144" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 24) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="150" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 25) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="3" height="12">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="156" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 26) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="162" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 27) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="168" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 28) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="174" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 29) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="180" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 30) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="3" height="12">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="186" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 31) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="192" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 32) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="198" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 33) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="204" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 34) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="210" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 35) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="3" height="12">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="216" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 36) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="222" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 37) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="228" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 38) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="234" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 39) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="240" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 40) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="3" height="12">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="246" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 41) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="252" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 42) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="258" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 43) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="264" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 44) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="270" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 45) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="3" height="12">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="276" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 46) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="282" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 47) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="288" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 48) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="294" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 49) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="300" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 50) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="3" height="12">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="306" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 51) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="312" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 52) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="318" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 53) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="324" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 54) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="330" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 55) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="3" height="12">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="336" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 56) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="342" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 57) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="348" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 58) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                    <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="354" alpha="0">
+                        <Transform target="alpha" value="([SECOND] &gt;= 59) ? 255 : 0" />
+                        <Rectangle x="239" y="6" width="2" height="7">
+                            <Fill color="[CONFIGURATION.colorTheme.0]" />
+                        </Rectangle>
+                    </PartDraw>
+                </Group>
+            </Compare>
+        </Condition>
+        <!-- Orbiting Second Dot -->
+        <Condition>
+            <Expressions>
+                <Expression name="isDot">[CONFIGURATION.secondsRing] == "dot"</Expression>
+            </Expressions>
+            <Compare expression="isDot">
+                <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="0" alpha="255">
+                    <Variant target="alpha" value="0" mode="AMBIENT" />
+                    <Transform target="angle" value="[SECOND] * 6" />
+                    <Ellipse x="235" y="6" width="10" height="10">
+                        <Fill color="[CONFIGURATION.colorTheme.0]" />
+                    </Ellipse>
+                </PartDraw>
+            </Compare>
+        </Condition>
+        <!-- Filling Second Arc -->
+        <Condition>
+            <Expressions>
+                <Expression name="isArc">[CONFIGURATION.secondsRing] == "arc"</Expression>
+            </Expressions>
+            <Compare expression="isArc">
+                <PartDraw x="0" y="0" width="480" height="480" alpha="255">
+                    <Variant target="alpha" value="0" mode="AMBIENT" />
+                    <Arc centerX="240" centerY="240" width="464" height="464" startAngle="0" endAngle="0" direction="CLOCKWISE">
+                        <Transform target="endAngle" value="[SECOND] * 6" />
+                        <Stroke color="[CONFIGURATION.colorTheme.0]" thickness="3" cap="ROUND" />
+                    </Arc>
+                </PartDraw>
+            </Compare>
+        </Condition>
+        <!-- Weather Top Section -->
+        <Group x="0" y="42" width="480" height="125" alpha="255">
+            <Variant target="alpha" value="0" mode="AMBIENT" />
+
+            <!-- Weather Condition Icon -->
+            <PartImage x="108" y="8" width="52" height="52" tintColor="[CONFIGURATION.colorTheme.0]">
+                <Condition>
+                    <Expressions>
+                        <Expression name="isClear">[WEATHER.CONDITION] == 1</Expression>
+                        <Expression name="isPartly">[WEATHER.CONDITION] == 2 || [WEATHER.CONDITION] == 3</Expression>
+                        <Expression name="isRain">[WEATHER.CONDITION] == 4 || [WEATHER.CONDITION] == 5 || [WEATHER.CONDITION] == 9</Expression>
+                        <Expression name="isSnow">[WEATHER.CONDITION] == 6 || [WEATHER.CONDITION] == 7</Expression>
+                        <Expression name="isStorm">[WEATHER.CONDITION] == 8 || [WEATHER.CONDITION] == 10</Expression>
+                    </Expressions>
+                    <Compare expression="isClear"><Image resource="ic_weather_clear" /></Compare>
+                    <Compare expression="isPartly"><Image resource="ic_weather_partly" /></Compare>
+                    <Compare expression="isRain"><Image resource="ic_weather_rain" /></Compare>
+                    <Compare expression="isSnow"><Image resource="ic_weather_snow" /></Compare>
+                    <Compare expression="isStorm"><Image resource="ic_weather_storm" /></Compare>
+                    <Default><Image resource="ic_weather_cloudy" /></Default>
+                </Condition>
+            </PartImage>
+
+            <!-- Current Temperature -->
+            <PartText x="172" y="2" width="110" height="66">
+                <Text align="CENTER">
+                    <Font family="[CONFIGURATION.fontChoice]" size="50" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                        <Template>%s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE] : &quot;--&quot;" /></Template>
+                    </Font>
+                </Text>
+            </PartText>
+
+            <!-- Max / Min Today -->
+            <PartText x="280" y="8" width="110" height="26">
+                <Text align="START">
+                    <Font family="[CONFIGURATION.fontChoice]" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                        <Template>Max %s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE_HIGH] : &quot;--&quot;" /></Template>
+                    </Font>
+                </Text>
+            </PartText>
+            <PartText x="280" y="34" width="110" height="26">
+                <Text align="START">
+                    <Font family="[CONFIGURATION.fontChoice]" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                        <Template>Min %s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE_LOW] : &quot;--&quot;" /></Template>
+                    </Font>
+                </Text>
+            </PartText>
+
+            <!-- Sub-row: 3-day forecast OR Weather description -->
+            <Condition>
+                <Expressions>
+                    <Expression name="showDesc">[CONFIGURATION.weatherRow] == "desc"</Expression>
+                </Expressions>
+                <Compare expression="showDesc">
+                    <PartText x="80" y="76" width="320" height="28">
+                        <Text align="CENTER" ellipsis="TRUE">
+                            <Font family="[CONFIGURATION.fontChoice]" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                <Template>%s<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.CONDITION_NAME] : &quot;Načítání počasí...&quot;" /></Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                </Compare>
+                <Default>
+                    <!-- 3-Day Forecast Row -->
+                    <PartText x="68" y="76" width="110" height="28">
+                        <Text align="CENTER">
+                            <Font family="[CONFIGURATION.fontChoice]" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                <Template>+1d %s/%s°<Parameter expression="[WEATHER.DAYS.1.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.1.TEMPERATURE_LOW]" /></Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                    <PartText x="185" y="76" width="110" height="28">
+                        <Text align="CENTER">
+                            <Font family="[CONFIGURATION.fontChoice]" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                <Template>+2d %s/%s°<Parameter expression="[WEATHER.DAYS.2.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.2.TEMPERATURE_LOW]" /></Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                    <PartText x="302" y="76" width="110" height="28">
+                        <Text align="CENTER">
+                            <Font family="[CONFIGURATION.fontChoice]" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                <Template>+3d %s/%s°<Parameter expression="[WEATHER.DAYS.3.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.3.TEMPERATURE_LOW]" /></Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                </Default>
+            </Condition>
+        </Group>
+        <!-- Middle Section: Date, Time, Seconds -->
+        <!-- Left: Day & Date -->
+        <Group x="28" y="200" width="96" height="80">
+            <PartText x="0" y="4" width="96" height="28">
+                <Text align="END">
+                    <Font family="[CONFIGURATION.fontChoice]" size="20" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                        <Template>%s<Parameter expression="[DAY_OF_WEEK_S]" /></Template>
+                    </Font>
+                </Text>
+            </PartText>
+            <PartText x="0" y="34" width="96" height="28">
+                <Text align="END">
+                    <Font family="[CONFIGURATION.fontChoice]" size="19" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                        <Template>%s.%s.<Parameter expression="[DAY]" /><Parameter expression="[MONTH]" /></Template>
+                    </Font>
+                </Text>
+            </PartText>
+        </Group>
+
+        <!-- Ghost 88:88 segments behind time -->
+        <Condition>
+            <Expressions>
+                <Expression name="isGhost">[CONFIGURATION.showGhost] == TRUE</Expression>
+            </Expressions>
+            <Compare expression="isGhost">
+                <PartText x="122" y="185" width="238" height="100" alpha="65">
+                    <Variant target="alpha" value="0" mode="AMBIENT" />
+                    <Text align="CENTER">
+                        <Font family="[CONFIGURATION.fontChoice]" size="70" weight="BOLD" color="[CONFIGURATION.colorTheme.1]">
+                            <Template>88:88</Template>
+                        </Font>
+                    </Text>
+                </PartText>
+            </Compare>
+        </Condition>
+
+        <!-- Main Digital Clock -->
+        <DigitalClock x="122" y="185" width="238" height="100">
+            <TimeText x="0" y="0" width="238" height="100" format="HH:mm" hourFormat="SYNC_TO_DEVICE" align="CENTER">
+                <Font family="[CONFIGURATION.fontChoice]" size="70" weight="BOLD" color="[CONFIGURATION.colorTheme.0]" />
+            </TimeText>
+        </DigitalClock>
+
+        <!-- Seconds on the right -->
+        <Condition>
+            <Expressions>
+                <Expression name="secOn">[CONFIGURATION.showSeconds] == TRUE</Expression>
+            </Expressions>
+            <Compare expression="secOn">
+                <Group x="366" y="218" width="76" height="54" alpha="255">
+                    <Variant target="alpha" value="0" mode="AMBIENT" />
+                    <DigitalClock x="0" y="0" width="76" height="54">
+                        <TimeText x="0" y="0" width="76" height="54" format="ss" hourFormat="SYNC_TO_DEVICE" align="START">
+                            <Font family="[CONFIGURATION.fontChoice]" size="34" weight="BOLD" color="[CONFIGURATION.colorTheme.0]" />
+                        </TimeText>
+                    </DigitalClock>
+                </Group>
+            </Compare>
+        </Condition>
+        <!-- Bottom Stats Section -->
+        <Group x="0" y="302" width="480" height="135" alpha="255">
+            <Variant target="alpha" value="90" mode="AMBIENT" />
+
+            <!-- Left: BATT -->
+            <PartText x="74" y="0" width="90" height="22">
+                <Text align="CENTER">
+                    <Font family="[CONFIGURATION.fontChoice]" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                        <Template>BATT</Template>
+                    </Font>
+                </Text>
+            </PartText>
+            <PartText x="74" y="24" width="90" height="42">
+                <Text align="CENTER">
+                    <Font family="[CONFIGURATION.fontChoice]" size="32" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                        <Template>%s<Parameter expression="[BATTERY_PERCENT]" /></Template>
+                    </Font>
+                </Text>
+            </PartText>
+
+            <!-- Center: STEPS -->
+            <PartText x="175" y="0" width="130" height="22">
+                <Text align="CENTER">
+                    <Font family="[CONFIGURATION.fontChoice]" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                        <Template>STEPS</Template>
+                    </Font>
+                </Text>
+            </PartText>
+            <PartText x="170" y="24" width="140" height="42">
+                <Text align="CENTER">
+                    <Font family="[CONFIGURATION.fontChoice]" size="32" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                        <Template>%s<Parameter expression="[STEP_COUNT]" /></Template>
+                    </Font>
+                </Text>
+            </PartText>
+
+            <!-- 10x10% Step Goal Progress Bar -->
+            <Group x="166" y="72" width="148" height="10">
+                <PartDraw x="0" y="0" width="11" height="8">
+                    <Rectangle x="0" y="0" width="11" height="8">
+                        <Fill color="[CONFIGURATION.colorTheme.1]" />
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw x="0" y="0" width="11" height="8" alpha="0">
+                    <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 10) ? 255 : 0" />
+                    <Rectangle x="0" y="0" width="11" height="8">
+                        <Fill color="[CONFIGURATION.colorTheme.0]" />
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw x="15" y="0" width="11" height="8">
+                    <Rectangle x="0" y="0" width="11" height="8">
+                        <Fill color="[CONFIGURATION.colorTheme.1]" />
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw x="15" y="0" width="11" height="8" alpha="0">
+                    <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 20) ? 255 : 0" />
+                    <Rectangle x="0" y="0" width="11" height="8">
+                        <Fill color="[CONFIGURATION.colorTheme.0]" />
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw x="30" y="0" width="11" height="8">
+                    <Rectangle x="0" y="0" width="11" height="8">
+                        <Fill color="[CONFIGURATION.colorTheme.1]" />
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw x="30" y="0" width="11" height="8" alpha="0">
+                    <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 30) ? 255 : 0" />
+                    <Rectangle x="0" y="0" width="11" height="8">
+                        <Fill color="[CONFIGURATION.colorTheme.0]" />
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw x="45" y="0" width="11" height="8">
+                    <Rectangle x="0" y="0" width="11" height="8">
+                        <Fill color="[CONFIGURATION.colorTheme.1]" />
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw x="45" y="0" width="11" height="8" alpha="0">
+                    <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 40) ? 255 : 0" />
+                    <Rectangle x="0" y="0" width="11" height="8">
+                        <Fill color="[CONFIGURATION.colorTheme.0]" />
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw x="60" y="0" width="11" height="8">
+                    <Rectangle x="0" y="0" width="11" height="8">
+                        <Fill color="[CONFIGURATION.colorTheme.1]" />
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw x="60" y="0" width="11" height="8" alpha="0">
+                    <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 50) ? 255 : 0" />
+                    <Rectangle x="0" y="0" width="11" height="8">
+                        <Fill color="[CONFIGURATION.colorTheme.0]" />
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw x="75" y="0" width="11" height="8">
+                    <Rectangle x="0" y="0" width="11" height="8">
+                        <Fill color="[CONFIGURATION.colorTheme.1]" />
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw x="75" y="0" width="11" height="8" alpha="0">
+                    <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 60) ? 255 : 0" />
+                    <Rectangle x="0" y="0" width="11" height="8">
+                        <Fill color="[CONFIGURATION.colorTheme.0]" />
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw x="90" y="0" width="11" height="8">
+                    <Rectangle x="0" y="0" width="11" height="8">
+                        <Fill color="[CONFIGURATION.colorTheme.1]" />
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw x="90" y="0" width="11" height="8" alpha="0">
+                    <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 70) ? 255 : 0" />
+                    <Rectangle x="0" y="0" width="11" height="8">
+                        <Fill color="[CONFIGURATION.colorTheme.0]" />
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw x="105" y="0" width="11" height="8">
+                    <Rectangle x="0" y="0" width="11" height="8">
+                        <Fill color="[CONFIGURATION.colorTheme.1]" />
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw x="105" y="0" width="11" height="8" alpha="0">
+                    <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 80) ? 255 : 0" />
+                    <Rectangle x="0" y="0" width="11" height="8">
+                        <Fill color="[CONFIGURATION.colorTheme.0]" />
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw x="120" y="0" width="11" height="8">
+                    <Rectangle x="0" y="0" width="11" height="8">
+                        <Fill color="[CONFIGURATION.colorTheme.1]" />
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw x="120" y="0" width="11" height="8" alpha="0">
+                    <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 90) ? 255 : 0" />
+                    <Rectangle x="0" y="0" width="11" height="8">
+                        <Fill color="[CONFIGURATION.colorTheme.0]" />
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw x="135" y="0" width="11" height="8">
+                    <Rectangle x="0" y="0" width="11" height="8">
+                        <Fill color="[CONFIGURATION.colorTheme.1]" />
+                    </Rectangle>
+                </PartDraw>
+                <PartDraw x="135" y="0" width="11" height="8" alpha="0">
+                    <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 100) ? 255 : 0" />
+                    <Rectangle x="0" y="0" width="11" height="8">
+                        <Fill color="[CONFIGURATION.colorTheme.0]" />
+                    </Rectangle>
+                </PartDraw>
+            </Group>
+
+            <!-- Right: BPM or Gemini -->
+            <Condition>
+                <Expressions>
+                    <Expression name="isGemini">[CONFIGURATION.rightSlot] == "gemini"</Expression>
+                </Expressions>
+                <Compare expression="isGemini">
+                    <PartText x="316" y="0" width="90" height="22">
+                        <Text align="CENTER">
+                            <Font family="[CONFIGURATION.fontChoice]" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                <Template>GMN</Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                    <PartImage x="343" y="26" width="36" height="36" tintColor="[CONFIGURATION.colorTheme.0]">
+                        <Launch target="com.google.android.wearable.assistant" />
+                        <Image resource="ic_gemini" />
+                    </PartImage>
+                </Compare>
+                <Default>
+                    <PartText x="316" y="0" width="90" height="22">
+                        <Text align="CENTER">
+                            <Font family="[CONFIGURATION.fontChoice]" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                <Template>BPM</Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                    <PartText x="316" y="24" width="90" height="42">
+                        <Text align="CENTER">
+                            <Font family="[CONFIGURATION.fontChoice]" size="32" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                <Template>%s<Parameter expression="[HEART_RATE] &gt; 0 ? [HEART_RATE] : &quot;--&quot;" /></Template>
+                            </Font>
+                        </Text>
+                    </PartText>
+                </Default>
+            </Condition>
+
+            <!-- Bottom: Unread Notifications (MSG) -->
+            <PartText x="170" y="96" width="140" height="26">
+                <Text align="CENTER">
+                    <Font family="[CONFIGURATION.fontChoice]" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                        <Template>MSG %s<Parameter expression="[UNREAD_NOTIFICATION_COUNT]" /></Template>
+                    </Font>
+                </Text>
+            </PartText>
+        </Group>
+
+        <!-- Subtle LCD Dot-Matrix Raster Overlay -->
+        <Condition>
+            <Expressions>
+                <Expression name="rasterOn">[CONFIGURATION.showRaster] == TRUE</Expression>
+            </Expressions>
+            <Compare expression="rasterOn">
+                <PartImage x="0" y="0" width="480" height="480" alpha="160">
+                    <Variant target="alpha" value="0" mode="AMBIENT" />
+                    <Image resource="lcd_raster" />
+                </PartImage>
+            </Compare>
+        </Condition>
+    </Scene>
+</WatchFace>

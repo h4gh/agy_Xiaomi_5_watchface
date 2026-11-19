@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="watch_face_name">Minimal LCD</string>
+
+    <string name="cfg_color_label">Barva</string>
+    <string name="cfg_color_white">Bílá</string>
+    <string name="cfg_color_green">Zelená</string>
+    <string name="cfg_color_amber">Jantarová</string>
+    <string name="cfg_color_cyan">Azurová</string>
+
+    <string name="cfg_font_label">Font</string>
+    <string name="cfg_font_orbitron">Orbitron</string>
+    <string name="cfg_font_outfit">Outfit</string>
+    <string name="cfg_font_space">Space Grotesk</string>
+    <string name="cfg_font_mono">Tech Mono</string>
+    <string name="cfg_font_system">Systémový</string>
+
+    <string name="cfg_seconds_ring_label">Vteřinová linka</string>
+    <string name="cfg_ring_off">Vypnuto</string>
+    <string name="cfg_ring_ticks_fill">Dílky (plní se)</string>
+    <string name="cfg_ring_dot">Obíhající tečka</string>
+    <string name="cfg_ring_arc">Oblouk (plní se)</string>
+    <string name="cfg_ring_static">Statická stupnice</string>
+
+    <string name="cfg_show_seconds_label">Zobrazit vteřiny</string>
+    <string name="cfg_show_raster_label">LCD rastr</string>
+    <string name="cfg_show_ghost_label">Zhasnuté segmenty</string>
+
+    <string name="cfg_weather_row_label">Řádek pod počasím</string>
+    <string name="cfg_weather_row_days">Předpověď 3 dny</string>
+    <string name="cfg_weather_row_desc">Popis počasí</string>
+
+    <string name="cfg_right_slot_label">Pravý údaj</string>
+    <string name="cfg_right_bpm">Tep (BPM)</string>
+    <string name="cfg_right_gemini">Gemini (GMN)</string>
+</resources>
