@@ -2,7 +2,7 @@
 <WatchFace width="480" height="480">
     <Metadata key="CLOCK_TYPE" value="DIGITAL" />
     <Metadata key="PREVIEW_TIME" value="19:45:53" />
-    <Metadata key="STEP_COUNT" value="7549" />
+    <Metadata key="STEP_GOAL" value="10000" />
 
     <UserConfigurations>
         <ColorConfiguration id="colorTheme" displayName="cfg_color_label" defaultValue="amber">
@@ -12,45 +12,44 @@
             <ColorOption id="cyan" displayName="cfg_color_cyan" colors="#FF38BDF8 #FF134763" />
         </ColorConfiguration>
 
-        <ListConfiguration id="fontChoice" displayName="cfg_font_label" defaultValue="orbitron">
-            <ListOption id="orbitron" displayName="cfg_font_orbitron" />
-            <ListOption id="outfit" displayName="cfg_font_outfit" />
-            <ListOption id="space_grotesk" displayName="cfg_font_space" />
-            <ListOption id="share_tech_mono" displayName="cfg_font_mono" />
-            <ListOption id="SYNC_TO_DEVICE" displayName="cfg_font_system" />
+        <ListConfiguration id="fontChoice" displayName="cfg_font_label" defaultValue="0">
+            <ListOption id="0" displayName="cfg_font_orbitron" />
+            <ListOption id="1" displayName="cfg_font_outfit" />
+            <ListOption id="2" displayName="cfg_font_space" />
+            <ListOption id="3" displayName="cfg_font_mono" />
+            <ListOption id="4" displayName="cfg_font_system" />
         </ListConfiguration>
 
-        <ListConfiguration id="secondsRing" displayName="cfg_seconds_ring_label" defaultValue="ticks_fill">
-            <ListOption id="off" displayName="cfg_ring_off" />
-            <ListOption id="ticks_fill" displayName="cfg_ring_ticks_fill" />
-            <ListOption id="dot" displayName="cfg_ring_dot" />
-            <ListOption id="arc" displayName="cfg_ring_arc" />
-            <ListOption id="static" displayName="cfg_ring_static" />
+        <ListConfiguration id="secondsRing" displayName="cfg_seconds_ring_label" defaultValue="1">
+            <ListOption id="0" displayName="cfg_ring_off" />
+            <ListOption id="1" displayName="cfg_ring_ticks_fill" />
+            <ListOption id="2" displayName="cfg_ring_dot" />
+            <ListOption id="3" displayName="cfg_ring_arc" />
+            <ListOption id="4" displayName="cfg_ring_static" />
         </ListConfiguration>
 
         <BooleanConfiguration id="showSeconds" displayName="cfg_show_seconds_label" defaultValue="TRUE" />
         <BooleanConfiguration id="showRaster" displayName="cfg_show_raster_label" defaultValue="TRUE" />
         <BooleanConfiguration id="showGhost" displayName="cfg_show_ghost_label" defaultValue="TRUE" />
 
-        <ListConfiguration id="weatherRow" displayName="cfg_weather_row_label" defaultValue="days">
-            <ListOption id="days" displayName="cfg_weather_row_days" />
-            <ListOption id="desc" displayName="cfg_weather_row_desc" />
+        <ListConfiguration id="weatherRow" displayName="cfg_weather_row_label" defaultValue="0">
+            <ListOption id="0" displayName="cfg_weather_row_days" />
+            <ListOption id="1" displayName="cfg_weather_row_desc" />
         </ListConfiguration>
 
-        <ListConfiguration id="rightSlot" displayName="cfg_right_slot_label" defaultValue="bpm">
-            <ListOption id="bpm" displayName="cfg_right_bpm" />
-            <ListOption id="gemini" displayName="cfg_right_gemini" />
+        <ListConfiguration id="rightSlot" displayName="cfg_right_slot_label" defaultValue="0">
+            <ListOption id="0" displayName="cfg_right_bpm" />
+            <ListOption id="1" displayName="cfg_right_gemini" />
         </ListConfiguration>
     </UserConfigurations>
 
     <Scene backgroundColor="#FF000000">
-        <!-- Outer Bezel Ticks (Static base) -->
+        <!-- Outer Seconds Ring -->
         <Condition>
             <Expressions>
-                <Expression name="isStatic">[CONFIGURATION.secondsRing] == "static"</Expression>
-                <Expression name="isTicksFill">[CONFIGURATION.secondsRing] == "ticks_fill"</Expression>
+                <Expression name="showBaseTicks">[CONFIGURATION.secondsRing] == "1" || [CONFIGURATION.secondsRing] == "4"</Expression>
             </Expressions>
-            <Compare expression="isStatic || isTicksFill">
+            <Compare expression="showBaseTicks">
                 <Group x="0" y="0" width="480" height="480" alpha="255">
                     <Variant target="alpha" value="0" mode="AMBIENT" />
                     <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="0">
@@ -356,12 +355,9 @@
                 </Group>
             </Compare>
         </Condition>
-        <!-- Outer Bezel Ticks (Filling up to current second) -->
-        <Condition>
-            <Expressions>
-                <Expression name="isTicksFill2">[CONFIGURATION.secondsRing] == "ticks_fill"</Expression>
-            </Expressions>
-            <Compare expression="isTicksFill2">
+
+        <ListConfiguration id="secondsRing">
+            <ListOption id="1">
                 <Group x="0" y="0" width="480" height="480" alpha="255">
                     <Variant target="alpha" value="0" mode="AMBIENT" />
                     <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="0" alpha="0">
@@ -725,14 +721,8 @@
                         </Rectangle>
                     </PartDraw>
                 </Group>
-            </Compare>
-        </Condition>
-        <!-- Orbiting Second Dot -->
-        <Condition>
-            <Expressions>
-                <Expression name="isDot">[CONFIGURATION.secondsRing] == "dot"</Expression>
-            </Expressions>
-            <Compare expression="isDot">
+            </ListOption>
+            <ListOption id="2">
                 <PartDraw x="0" y="0" width="480" height="480" pivotX="0.5" pivotY="0.5" angle="0" alpha="255">
                     <Variant target="alpha" value="0" mode="AMBIENT" />
                     <Transform target="angle" value="[SECOND] * 6" />
@@ -740,14 +730,8 @@
                         <Fill color="[CONFIGURATION.colorTheme.0]" />
                     </Ellipse>
                 </PartDraw>
-            </Compare>
-        </Condition>
-        <!-- Filling Second Arc -->
-        <Condition>
-            <Expressions>
-                <Expression name="isArc">[CONFIGURATION.secondsRing] == "arc"</Expression>
-            </Expressions>
-            <Compare expression="isArc">
+            </ListOption>
+            <ListOption id="3">
                 <PartDraw x="0" y="0" width="480" height="480" alpha="255">
                     <Variant target="alpha" value="0" mode="AMBIENT" />
                     <Arc centerX="240" centerY="240" width="464" height="464" startAngle="0" endAngle="0" direction="CLOCKWISE">
@@ -755,362 +739,1141 @@
                         <Stroke color="[CONFIGURATION.colorTheme.0]" thickness="3" cap="ROUND" />
                     </Arc>
                 </PartDraw>
-            </Compare>
-        </Condition>
-        <!-- Weather Top Section -->
-        <Group x="0" y="42" width="480" height="125" alpha="255">
+            </ListOption>
+        </ListConfiguration>
+        <!-- Weather Icon -->
+        <Group x="0" y="42" width="480" height="72" alpha="255">
             <Variant target="alpha" value="0" mode="AMBIENT" />
-
-            <!-- Weather Condition Icon -->
-            <PartImage x="108" y="8" width="52" height="52" tintColor="[CONFIGURATION.colorTheme.0]">
-                <Condition>
-                    <Expressions>
-                        <Expression name="isClear">[WEATHER.CONDITION] == 1</Expression>
-                        <Expression name="isPartly">[WEATHER.CONDITION] == 2 || [WEATHER.CONDITION] == 3</Expression>
-                        <Expression name="isRain">[WEATHER.CONDITION] == 4 || [WEATHER.CONDITION] == 5 || [WEATHER.CONDITION] == 9</Expression>
-                        <Expression name="isSnow">[WEATHER.CONDITION] == 6 || [WEATHER.CONDITION] == 7</Expression>
-                        <Expression name="isStorm">[WEATHER.CONDITION] == 8 || [WEATHER.CONDITION] == 10</Expression>
-                    </Expressions>
-                    <Compare expression="isClear"><Image resource="ic_weather_clear" /></Compare>
-                    <Compare expression="isPartly"><Image resource="ic_weather_partly" /></Compare>
-                    <Compare expression="isRain"><Image resource="ic_weather_rain" /></Compare>
-                    <Compare expression="isSnow"><Image resource="ic_weather_snow" /></Compare>
-                    <Compare expression="isStorm"><Image resource="ic_weather_storm" /></Compare>
-                    <Default><Image resource="ic_weather_cloudy" /></Default>
-                </Condition>
-            </PartImage>
-
-            <!-- Current Temperature -->
-            <PartText x="172" y="2" width="110" height="66">
-                <Text align="CENTER">
-                    <Font family="[CONFIGURATION.fontChoice]" size="50" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
-                        <Template>%s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE] : &quot;--&quot;" /></Template>
-                    </Font>
-                </Text>
-            </PartText>
-
-            <!-- Max / Min Today -->
-            <PartText x="280" y="8" width="110" height="26">
-                <Text align="START">
-                    <Font family="[CONFIGURATION.fontChoice]" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                        <Template>Max %s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE_HIGH] : &quot;--&quot;" /></Template>
-                    </Font>
-                </Text>
-            </PartText>
-            <PartText x="280" y="34" width="110" height="26">
-                <Text align="START">
-                    <Font family="[CONFIGURATION.fontChoice]" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                        <Template>Min %s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE_LOW] : &quot;--&quot;" /></Template>
-                    </Font>
-                </Text>
-            </PartText>
-
-            <!-- Sub-row: 3-day forecast OR Weather description -->
             <Condition>
                 <Expressions>
-                    <Expression name="showDesc">[CONFIGURATION.weatherRow] == "desc"</Expression>
+                    <Expression name="isClear">[WEATHER.CONDITION] == 1</Expression>
+                    <Expression name="isPartly">[WEATHER.CONDITION] == 2 || [WEATHER.CONDITION] == 3</Expression>
+                    <Expression name="isRain">[WEATHER.CONDITION] == 4 || [WEATHER.CONDITION] == 5 || [WEATHER.CONDITION] == 9</Expression>
+                    <Expression name="isSnow">[WEATHER.CONDITION] == 6 || [WEATHER.CONDITION] == 7</Expression>
+                    <Expression name="isStorm">[WEATHER.CONDITION] == 8 || [WEATHER.CONDITION] == 10</Expression>
                 </Expressions>
-                <Compare expression="showDesc">
-                    <PartText x="80" y="76" width="320" height="28">
-                        <Text align="CENTER" ellipsis="TRUE">
-                            <Font family="[CONFIGURATION.fontChoice]" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                <Template>%s<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.CONDITION_NAME] : &quot;Načítání počasí...&quot;" /></Template>
-                            </Font>
-                        </Text>
-                    </PartText>
+                <Compare expression="isClear">
+                    <PartImage x="108" y="8" width="52" height="52" tintColor="[CONFIGURATION.colorTheme.0]">
+                        <Image resource="ic_weather_clear" />
+                    </PartImage>
                 </Compare>
-                <Default>
-                    <!-- 3-Day Forecast Row -->
-                    <PartText x="68" y="76" width="110" height="28">
-                        <Text align="CENTER">
-                            <Font family="[CONFIGURATION.fontChoice]" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                <Template>+1d %s/%s°<Parameter expression="[WEATHER.DAYS.1.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.1.TEMPERATURE_LOW]" /></Template>
-                            </Font>
-                        </Text>
-                    </PartText>
-                    <PartText x="185" y="76" width="110" height="28">
-                        <Text align="CENTER">
-                            <Font family="[CONFIGURATION.fontChoice]" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                <Template>+2d %s/%s°<Parameter expression="[WEATHER.DAYS.2.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.2.TEMPERATURE_LOW]" /></Template>
-                            </Font>
-                        </Text>
-                    </PartText>
-                    <PartText x="302" y="76" width="110" height="28">
-                        <Text align="CENTER">
-                            <Font family="[CONFIGURATION.fontChoice]" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                <Template>+3d %s/%s°<Parameter expression="[WEATHER.DAYS.3.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.3.TEMPERATURE_LOW]" /></Template>
-                            </Font>
-                        </Text>
-                    </PartText>
-                </Default>
-            </Condition>
-        </Group>
-        <!-- Middle Section: Date, Time, Seconds -->
-        <!-- Left: Day & Date -->
-        <Group x="28" y="200" width="96" height="80">
-            <PartText x="0" y="4" width="96" height="28">
-                <Text align="END">
-                    <Font family="[CONFIGURATION.fontChoice]" size="20" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
-                        <Template>%s<Parameter expression="[DAY_OF_WEEK_S]" /></Template>
-                    </Font>
-                </Text>
-            </PartText>
-            <PartText x="0" y="34" width="96" height="28">
-                <Text align="END">
-                    <Font family="[CONFIGURATION.fontChoice]" size="19" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                        <Template>%s.%s.<Parameter expression="[DAY]" /><Parameter expression="[MONTH]" /></Template>
-                    </Font>
-                </Text>
-            </PartText>
-        </Group>
-
-        <!-- Ghost 88:88 segments behind time -->
-        <Condition>
-            <Expressions>
-                <Expression name="isGhost">[CONFIGURATION.showGhost] == TRUE</Expression>
-            </Expressions>
-            <Compare expression="isGhost">
-                <PartText x="122" y="185" width="238" height="100" alpha="65">
-                    <Variant target="alpha" value="0" mode="AMBIENT" />
-                    <Text align="CENTER">
-                        <Font family="[CONFIGURATION.fontChoice]" size="70" weight="BOLD" color="[CONFIGURATION.colorTheme.1]">
-                            <Template>88:88</Template>
-                        </Font>
-                    </Text>
-                </PartText>
-            </Compare>
-        </Condition>
-
-        <!-- Main Digital Clock -->
-        <DigitalClock x="122" y="185" width="238" height="100">
-            <TimeText x="0" y="0" width="238" height="100" format="HH:mm" hourFormat="SYNC_TO_DEVICE" align="CENTER">
-                <Font family="[CONFIGURATION.fontChoice]" size="70" weight="BOLD" color="[CONFIGURATION.colorTheme.0]" />
-            </TimeText>
-        </DigitalClock>
-
-        <!-- Seconds on the right -->
-        <Condition>
-            <Expressions>
-                <Expression name="secOn">[CONFIGURATION.showSeconds] == TRUE</Expression>
-            </Expressions>
-            <Compare expression="secOn">
-                <Group x="366" y="218" width="76" height="54" alpha="255">
-                    <Variant target="alpha" value="0" mode="AMBIENT" />
-                    <DigitalClock x="0" y="0" width="76" height="54">
-                        <TimeText x="0" y="0" width="76" height="54" format="ss" hourFormat="SYNC_TO_DEVICE" align="START">
-                            <Font family="[CONFIGURATION.fontChoice]" size="34" weight="BOLD" color="[CONFIGURATION.colorTheme.0]" />
-                        </TimeText>
-                    </DigitalClock>
-                </Group>
-            </Compare>
-        </Condition>
-        <!-- Bottom Stats Section -->
-        <Group x="0" y="302" width="480" height="135" alpha="255">
-            <Variant target="alpha" value="90" mode="AMBIENT" />
-
-            <!-- Left: BATT -->
-            <PartText x="74" y="0" width="90" height="22">
-                <Text align="CENTER">
-                    <Font family="[CONFIGURATION.fontChoice]" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
-                        <Template>BATT</Template>
-                    </Font>
-                </Text>
-            </PartText>
-            <PartText x="74" y="24" width="90" height="42">
-                <Text align="CENTER">
-                    <Font family="[CONFIGURATION.fontChoice]" size="32" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
-                        <Template>%s<Parameter expression="[BATTERY_PERCENT]" /></Template>
-                    </Font>
-                </Text>
-            </PartText>
-
-            <!-- Center: STEPS -->
-            <PartText x="175" y="0" width="130" height="22">
-                <Text align="CENTER">
-                    <Font family="[CONFIGURATION.fontChoice]" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
-                        <Template>STEPS</Template>
-                    </Font>
-                </Text>
-            </PartText>
-            <PartText x="170" y="24" width="140" height="42">
-                <Text align="CENTER">
-                    <Font family="[CONFIGURATION.fontChoice]" size="32" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
-                        <Template>%s<Parameter expression="[STEP_COUNT]" /></Template>
-                    </Font>
-                </Text>
-            </PartText>
-
-            <!-- 10x10% Step Goal Progress Bar -->
-            <Group x="166" y="72" width="148" height="10">
-                <PartDraw x="0" y="0" width="11" height="8">
-                    <Rectangle x="0" y="0" width="11" height="8">
-                        <Fill color="[CONFIGURATION.colorTheme.1]" />
-                    </Rectangle>
-                </PartDraw>
-                <PartDraw x="0" y="0" width="11" height="8" alpha="0">
-                    <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 10) ? 255 : 0" />
-                    <Rectangle x="0" y="0" width="11" height="8">
-                        <Fill color="[CONFIGURATION.colorTheme.0]" />
-                    </Rectangle>
-                </PartDraw>
-                <PartDraw x="15" y="0" width="11" height="8">
-                    <Rectangle x="0" y="0" width="11" height="8">
-                        <Fill color="[CONFIGURATION.colorTheme.1]" />
-                    </Rectangle>
-                </PartDraw>
-                <PartDraw x="15" y="0" width="11" height="8" alpha="0">
-                    <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 20) ? 255 : 0" />
-                    <Rectangle x="0" y="0" width="11" height="8">
-                        <Fill color="[CONFIGURATION.colorTheme.0]" />
-                    </Rectangle>
-                </PartDraw>
-                <PartDraw x="30" y="0" width="11" height="8">
-                    <Rectangle x="0" y="0" width="11" height="8">
-                        <Fill color="[CONFIGURATION.colorTheme.1]" />
-                    </Rectangle>
-                </PartDraw>
-                <PartDraw x="30" y="0" width="11" height="8" alpha="0">
-                    <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 30) ? 255 : 0" />
-                    <Rectangle x="0" y="0" width="11" height="8">
-                        <Fill color="[CONFIGURATION.colorTheme.0]" />
-                    </Rectangle>
-                </PartDraw>
-                <PartDraw x="45" y="0" width="11" height="8">
-                    <Rectangle x="0" y="0" width="11" height="8">
-                        <Fill color="[CONFIGURATION.colorTheme.1]" />
-                    </Rectangle>
-                </PartDraw>
-                <PartDraw x="45" y="0" width="11" height="8" alpha="0">
-                    <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 40) ? 255 : 0" />
-                    <Rectangle x="0" y="0" width="11" height="8">
-                        <Fill color="[CONFIGURATION.colorTheme.0]" />
-                    </Rectangle>
-                </PartDraw>
-                <PartDraw x="60" y="0" width="11" height="8">
-                    <Rectangle x="0" y="0" width="11" height="8">
-                        <Fill color="[CONFIGURATION.colorTheme.1]" />
-                    </Rectangle>
-                </PartDraw>
-                <PartDraw x="60" y="0" width="11" height="8" alpha="0">
-                    <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 50) ? 255 : 0" />
-                    <Rectangle x="0" y="0" width="11" height="8">
-                        <Fill color="[CONFIGURATION.colorTheme.0]" />
-                    </Rectangle>
-                </PartDraw>
-                <PartDraw x="75" y="0" width="11" height="8">
-                    <Rectangle x="0" y="0" width="11" height="8">
-                        <Fill color="[CONFIGURATION.colorTheme.1]" />
-                    </Rectangle>
-                </PartDraw>
-                <PartDraw x="75" y="0" width="11" height="8" alpha="0">
-                    <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 60) ? 255 : 0" />
-                    <Rectangle x="0" y="0" width="11" height="8">
-                        <Fill color="[CONFIGURATION.colorTheme.0]" />
-                    </Rectangle>
-                </PartDraw>
-                <PartDraw x="90" y="0" width="11" height="8">
-                    <Rectangle x="0" y="0" width="11" height="8">
-                        <Fill color="[CONFIGURATION.colorTheme.1]" />
-                    </Rectangle>
-                </PartDraw>
-                <PartDraw x="90" y="0" width="11" height="8" alpha="0">
-                    <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 70) ? 255 : 0" />
-                    <Rectangle x="0" y="0" width="11" height="8">
-                        <Fill color="[CONFIGURATION.colorTheme.0]" />
-                    </Rectangle>
-                </PartDraw>
-                <PartDraw x="105" y="0" width="11" height="8">
-                    <Rectangle x="0" y="0" width="11" height="8">
-                        <Fill color="[CONFIGURATION.colorTheme.1]" />
-                    </Rectangle>
-                </PartDraw>
-                <PartDraw x="105" y="0" width="11" height="8" alpha="0">
-                    <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 80) ? 255 : 0" />
-                    <Rectangle x="0" y="0" width="11" height="8">
-                        <Fill color="[CONFIGURATION.colorTheme.0]" />
-                    </Rectangle>
-                </PartDraw>
-                <PartDraw x="120" y="0" width="11" height="8">
-                    <Rectangle x="0" y="0" width="11" height="8">
-                        <Fill color="[CONFIGURATION.colorTheme.1]" />
-                    </Rectangle>
-                </PartDraw>
-                <PartDraw x="120" y="0" width="11" height="8" alpha="0">
-                    <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 90) ? 255 : 0" />
-                    <Rectangle x="0" y="0" width="11" height="8">
-                        <Fill color="[CONFIGURATION.colorTheme.0]" />
-                    </Rectangle>
-                </PartDraw>
-                <PartDraw x="135" y="0" width="11" height="8">
-                    <Rectangle x="0" y="0" width="11" height="8">
-                        <Fill color="[CONFIGURATION.colorTheme.1]" />
-                    </Rectangle>
-                </PartDraw>
-                <PartDraw x="135" y="0" width="11" height="8" alpha="0">
-                    <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 100) ? 255 : 0" />
-                    <Rectangle x="0" y="0" width="11" height="8">
-                        <Fill color="[CONFIGURATION.colorTheme.0]" />
-                    </Rectangle>
-                </PartDraw>
-            </Group>
-
-            <!-- Right: BPM or Gemini -->
-            <Condition>
-                <Expressions>
-                    <Expression name="isGemini">[CONFIGURATION.rightSlot] == "gemini"</Expression>
-                </Expressions>
-                <Compare expression="isGemini">
-                    <PartText x="316" y="0" width="90" height="22">
-                        <Text align="CENTER">
-                            <Font family="[CONFIGURATION.fontChoice]" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
-                                <Template>GMN</Template>
-                            </Font>
-                        </Text>
-                    </PartText>
-                    <PartImage x="343" y="26" width="36" height="36" tintColor="[CONFIGURATION.colorTheme.0]">
-                        <Launch target="com.google.android.wearable.assistant" />
-                        <Image resource="ic_gemini" />
+                <Compare expression="isPartly">
+                    <PartImage x="108" y="8" width="52" height="52" tintColor="[CONFIGURATION.colorTheme.0]">
+                        <Image resource="ic_weather_partly" />
+                    </PartImage>
+                </Compare>
+                <Compare expression="isRain">
+                    <PartImage x="108" y="8" width="52" height="52" tintColor="[CONFIGURATION.colorTheme.0]">
+                        <Image resource="ic_weather_rain" />
+                    </PartImage>
+                </Compare>
+                <Compare expression="isSnow">
+                    <PartImage x="108" y="8" width="52" height="52" tintColor="[CONFIGURATION.colorTheme.0]">
+                        <Image resource="ic_weather_snow" />
+                    </PartImage>
+                </Compare>
+                <Compare expression="isStorm">
+                    <PartImage x="108" y="8" width="52" height="52" tintColor="[CONFIGURATION.colorTheme.0]">
+                        <Image resource="ic_weather_storm" />
                     </PartImage>
                 </Compare>
                 <Default>
-                    <PartText x="316" y="0" width="90" height="22">
-                        <Text align="CENTER">
-                            <Font family="[CONFIGURATION.fontChoice]" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
-                                <Template>BPM</Template>
-                            </Font>
-                        </Text>
-                    </PartText>
-                    <PartText x="316" y="24" width="90" height="42">
-                        <Text align="CENTER">
-                            <Font family="[CONFIGURATION.fontChoice]" size="32" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
-                                <Template>%s<Parameter expression="[HEART_RATE] &gt; 0 ? [HEART_RATE] : &quot;--&quot;" /></Template>
-                            </Font>
-                        </Text>
-                    </PartText>
+                    <PartImage x="108" y="8" width="52" height="52" tintColor="[CONFIGURATION.colorTheme.0]">
+                        <Image resource="ic_weather_cloudy" />
+                    </PartImage>
                 </Default>
             </Condition>
-
-            <!-- Bottom: Unread Notifications (MSG) -->
-            <PartText x="170" y="96" width="140" height="26">
-                <Text align="CENTER">
-                    <Font family="[CONFIGURATION.fontChoice]" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
-                        <Template>MSG %s<Parameter expression="[UNREAD_NOTIFICATION_COUNT]" /></Template>
-                    </Font>
-                </Text>
-            </PartText>
         </Group>
+        <!-- 10x10% Step Goal Progress Bar -->
+        <Group x="166" y="374" width="148" height="10" alpha="255">
+            <Variant target="alpha" value="90" mode="AMBIENT" />
+            <PartDraw x="0" y="0" width="11" height="8">
+                <Rectangle x="0" y="0" width="11" height="8">
+                    <Fill color="[CONFIGURATION.colorTheme.1]" />
+                </Rectangle>
+            </PartDraw>
+            <PartDraw x="0" y="0" width="11" height="8" alpha="0">
+                <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 10) ? 255 : 0" />
+                <Rectangle x="0" y="0" width="11" height="8">
+                    <Fill color="[CONFIGURATION.colorTheme.0]" />
+                </Rectangle>
+            </PartDraw>
+            <PartDraw x="15" y="0" width="11" height="8">
+                <Rectangle x="0" y="0" width="11" height="8">
+                    <Fill color="[CONFIGURATION.colorTheme.1]" />
+                </Rectangle>
+            </PartDraw>
+            <PartDraw x="15" y="0" width="11" height="8" alpha="0">
+                <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 20) ? 255 : 0" />
+                <Rectangle x="0" y="0" width="11" height="8">
+                    <Fill color="[CONFIGURATION.colorTheme.0]" />
+                </Rectangle>
+            </PartDraw>
+            <PartDraw x="30" y="0" width="11" height="8">
+                <Rectangle x="0" y="0" width="11" height="8">
+                    <Fill color="[CONFIGURATION.colorTheme.1]" />
+                </Rectangle>
+            </PartDraw>
+            <PartDraw x="30" y="0" width="11" height="8" alpha="0">
+                <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 30) ? 255 : 0" />
+                <Rectangle x="0" y="0" width="11" height="8">
+                    <Fill color="[CONFIGURATION.colorTheme.0]" />
+                </Rectangle>
+            </PartDraw>
+            <PartDraw x="45" y="0" width="11" height="8">
+                <Rectangle x="0" y="0" width="11" height="8">
+                    <Fill color="[CONFIGURATION.colorTheme.1]" />
+                </Rectangle>
+            </PartDraw>
+            <PartDraw x="45" y="0" width="11" height="8" alpha="0">
+                <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 40) ? 255 : 0" />
+                <Rectangle x="0" y="0" width="11" height="8">
+                    <Fill color="[CONFIGURATION.colorTheme.0]" />
+                </Rectangle>
+            </PartDraw>
+            <PartDraw x="60" y="0" width="11" height="8">
+                <Rectangle x="0" y="0" width="11" height="8">
+                    <Fill color="[CONFIGURATION.colorTheme.1]" />
+                </Rectangle>
+            </PartDraw>
+            <PartDraw x="60" y="0" width="11" height="8" alpha="0">
+                <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 50) ? 255 : 0" />
+                <Rectangle x="0" y="0" width="11" height="8">
+                    <Fill color="[CONFIGURATION.colorTheme.0]" />
+                </Rectangle>
+            </PartDraw>
+            <PartDraw x="75" y="0" width="11" height="8">
+                <Rectangle x="0" y="0" width="11" height="8">
+                    <Fill color="[CONFIGURATION.colorTheme.1]" />
+                </Rectangle>
+            </PartDraw>
+            <PartDraw x="75" y="0" width="11" height="8" alpha="0">
+                <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 60) ? 255 : 0" />
+                <Rectangle x="0" y="0" width="11" height="8">
+                    <Fill color="[CONFIGURATION.colorTheme.0]" />
+                </Rectangle>
+            </PartDraw>
+            <PartDraw x="90" y="0" width="11" height="8">
+                <Rectangle x="0" y="0" width="11" height="8">
+                    <Fill color="[CONFIGURATION.colorTheme.1]" />
+                </Rectangle>
+            </PartDraw>
+            <PartDraw x="90" y="0" width="11" height="8" alpha="0">
+                <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 70) ? 255 : 0" />
+                <Rectangle x="0" y="0" width="11" height="8">
+                    <Fill color="[CONFIGURATION.colorTheme.0]" />
+                </Rectangle>
+            </PartDraw>
+            <PartDraw x="105" y="0" width="11" height="8">
+                <Rectangle x="0" y="0" width="11" height="8">
+                    <Fill color="[CONFIGURATION.colorTheme.1]" />
+                </Rectangle>
+            </PartDraw>
+            <PartDraw x="105" y="0" width="11" height="8" alpha="0">
+                <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 80) ? 255 : 0" />
+                <Rectangle x="0" y="0" width="11" height="8">
+                    <Fill color="[CONFIGURATION.colorTheme.0]" />
+                </Rectangle>
+            </PartDraw>
+            <PartDraw x="120" y="0" width="11" height="8">
+                <Rectangle x="0" y="0" width="11" height="8">
+                    <Fill color="[CONFIGURATION.colorTheme.1]" />
+                </Rectangle>
+            </PartDraw>
+            <PartDraw x="120" y="0" width="11" height="8" alpha="0">
+                <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 90) ? 255 : 0" />
+                <Rectangle x="0" y="0" width="11" height="8">
+                    <Fill color="[CONFIGURATION.colorTheme.0]" />
+                </Rectangle>
+            </PartDraw>
+            <PartDraw x="135" y="0" width="11" height="8">
+                <Rectangle x="0" y="0" width="11" height="8">
+                    <Fill color="[CONFIGURATION.colorTheme.1]" />
+                </Rectangle>
+            </PartDraw>
+            <PartDraw x="135" y="0" width="11" height="8" alpha="0">
+                <Transform target="alpha" value="(([STEP_COUNT] * 100 / ([STEP_GOAL] &gt; 0 ? [STEP_GOAL] : 10000)) &gt;= 100) ? 255 : 0" />
+                <Rectangle x="0" y="0" width="11" height="8">
+                    <Fill color="[CONFIGURATION.colorTheme.0]" />
+                </Rectangle>
+            </PartDraw>
+        </Group>
+        <ListConfiguration id="rightSlot">
+            <ListOption id="1">
+                <PartImage x="343" y="328" width="36" height="36" tintColor="[CONFIGURATION.colorTheme.0]">
+                    <Variant target="alpha" value="90" mode="AMBIENT" />
+                    <Launch target="com.google.android.wearable.assistant" />
+                    <Image resource="ic_gemini" />
+                </PartImage>
+            </ListOption>
+        </ListConfiguration>
+        <!-- Text & Digital Clock per Font Choice -->
+        <ListConfiguration id="fontChoice">
+            <ListOption id="0">
+                <Group x="0" y="0" width="480" height="480">
+                    <!-- Weather Text -->
+                    <Group x="0" y="42" width="480" height="125" alpha="255">
+                        <Variant target="alpha" value="0" mode="AMBIENT" />
+                        <PartText x="172" y="2" width="110" height="66">
+                            <Text align="CENTER">
+                                <Font family="orbitron" size="50" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE] : &quot;--&quot;" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="280" y="8" width="110" height="26">
+                            <Text align="START">
+                                <Font family="orbitron" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>Max %s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE_HIGH] : &quot;--&quot;" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="280" y="34" width="110" height="26">
+                            <Text align="START">
+                                <Font family="orbitron" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>Min %s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE_LOW] : &quot;--&quot;" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
 
-        <!-- Subtle LCD Dot-Matrix Raster Overlay -->
-        <Condition>
-            <Expressions>
-                <Expression name="rasterOn">[CONFIGURATION.showRaster] == TRUE</Expression>
-            </Expressions>
-            <Compare expression="rasterOn">
+                        <ListConfiguration id="weatherRow">
+                            <ListOption id="0">
+                                <Group x="0" y="76" width="480" height="28">
+                                    <PartText x="68" y="0" width="110" height="28">
+                                        <Text align="CENTER">
+                                            <Font family="orbitron" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                                <Template>+1d %s/%s°<Parameter expression="[WEATHER.DAYS.1.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.1.TEMPERATURE_LOW]" /></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                    <PartText x="185" y="0" width="110" height="28">
+                                        <Text align="CENTER">
+                                            <Font family="orbitron" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                                <Template>+2d %s/%s°<Parameter expression="[WEATHER.DAYS.2.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.2.TEMPERATURE_LOW]" /></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                    <PartText x="302" y="0" width="110" height="28">
+                                        <Text align="CENTER">
+                                            <Font family="orbitron" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                                <Template>+3d %s/%s°<Parameter expression="[WEATHER.DAYS.3.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.3.TEMPERATURE_LOW]" /></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Group>
+                            </ListOption>
+                            <ListOption id="1">
+                                <PartText x="80" y="76" width="320" height="28">
+                                    <Text align="CENTER" ellipsis="TRUE">
+                                        <Font family="orbitron" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                            <Template>%s<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.CONDITION_NAME] : &quot;Načítání počasí...&quot;" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
+                            </ListOption>
+                        </ListConfiguration>
+                    </Group>
+
+                    <!-- Date -->
+                    <Group x="28" y="200" width="96" height="80">
+                        <PartText x="0" y="4" width="96" height="28">
+                            <Text align="END">
+                                <Font family="orbitron" size="20" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s<Parameter expression="[DAY_OF_WEEK_S]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="0" y="34" width="96" height="28">
+                            <Text align="END">
+                                <Font family="orbitron" size="19" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s.%s.<Parameter expression="[DAY]" /><Parameter expression="[MONTH]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                    </Group>
+
+                    <!-- Ghost 88:88 -->
+                    <BooleanConfiguration id="showGhost">
+                        <BooleanOption id="TRUE">
+                            <PartText x="122" y="185" width="238" height="100" alpha="65">
+                                <Variant target="alpha" value="0" mode="AMBIENT" />
+                                <Text align="CENTER">
+                                    <Font family="orbitron" size="70" weight="BOLD" color="[CONFIGURATION.colorTheme.1]">
+                                        <Template>88:88</Template>
+                                    </Font>
+                                </Text>
+                            </PartText>
+                        </BooleanOption>
+                    </BooleanConfiguration>
+
+                    <!-- Main Time -->
+                    <DigitalClock x="122" y="185" width="238" height="100">
+                        <TimeText x="0" y="0" width="238" height="100" format="HH:mm" hourFormat="SYNC_TO_DEVICE" align="CENTER">
+                            <Font family="orbitron" size="70" weight="BOLD" color="[CONFIGURATION.colorTheme.0]" />
+                        </TimeText>
+                    </DigitalClock>
+
+                    <!-- Seconds -->
+                    <BooleanConfiguration id="showSeconds">
+                        <BooleanOption id="TRUE">
+                            <Group x="366" y="218" width="76" height="54" alpha="255">
+                                <Variant target="alpha" value="0" mode="AMBIENT" />
+                                <DigitalClock x="0" y="0" width="76" height="54">
+                                    <TimeText x="0" y="0" width="76" height="54" format="ss" hourFormat="SYNC_TO_DEVICE" align="START">
+                                        <Font family="orbitron" size="34" weight="BOLD" color="[CONFIGURATION.colorTheme.0]" />
+                                    </TimeText>
+                                </DigitalClock>
+                            </Group>
+                        </BooleanOption>
+                    </BooleanConfiguration>
+
+                    <!-- Bottom Stats Labels & Values -->
+                    <Group x="0" y="302" width="480" height="135" alpha="255">
+                        <Variant target="alpha" value="90" mode="AMBIENT" />
+                        <PartText x="74" y="0" width="90" height="22">
+                            <Text align="CENTER">
+                                <Font family="orbitron" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                    <Template>BATT</Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="74" y="24" width="90" height="42">
+                            <Text align="CENTER">
+                                <Font family="orbitron" size="32" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s<Parameter expression="[BATTERY_PERCENT]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+
+                        <PartText x="175" y="0" width="130" height="22">
+                            <Text align="CENTER">
+                                <Font family="orbitron" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                    <Template>STEPS</Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="170" y="24" width="140" height="42">
+                            <Text align="CENTER">
+                                <Font family="orbitron" size="32" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s<Parameter expression="[STEP_COUNT]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+
+                        <ListConfiguration id="rightSlot">
+                            <ListOption id="0">
+                                <Group x="316" y="0" width="90" height="68">
+                                    <PartText x="0" y="0" width="90" height="22">
+                                        <Text align="CENTER">
+                                            <Font family="orbitron" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                                <Template>BPM</Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                    <PartText x="0" y="24" width="90" height="42">
+                                        <Text align="CENTER">
+                                            <Font family="orbitron" size="32" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                                <Template>%s<Parameter expression="[HEART_RATE] &gt; 0 ? [HEART_RATE] : &quot;--&quot;" /></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Group>
+                            </ListOption>
+                            <ListOption id="1">
+                                <PartText x="316" y="0" width="90" height="22">
+                                    <Text align="CENTER">
+                                        <Font family="orbitron" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                            <Template>GMN</Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
+                            </ListOption>
+                        </ListConfiguration>
+
+                        <PartText x="170" y="96" width="140" height="26">
+                            <Text align="CENTER">
+                                <Font family="orbitron" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                    <Template>MSG %s<Parameter expression="[UNREAD_NOTIFICATION_COUNT]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                    </Group>
+                </Group>
+            </ListOption>
+            <ListOption id="1">
+                <Group x="0" y="0" width="480" height="480">
+                    <!-- Weather Text -->
+                    <Group x="0" y="42" width="480" height="125" alpha="255">
+                        <Variant target="alpha" value="0" mode="AMBIENT" />
+                        <PartText x="172" y="2" width="110" height="66">
+                            <Text align="CENTER">
+                                <Font family="outfit" size="50" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE] : &quot;--&quot;" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="280" y="8" width="110" height="26">
+                            <Text align="START">
+                                <Font family="outfit" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>Max %s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE_HIGH] : &quot;--&quot;" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="280" y="34" width="110" height="26">
+                            <Text align="START">
+                                <Font family="outfit" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>Min %s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE_LOW] : &quot;--&quot;" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+
+                        <ListConfiguration id="weatherRow">
+                            <ListOption id="0">
+                                <Group x="0" y="76" width="480" height="28">
+                                    <PartText x="68" y="0" width="110" height="28">
+                                        <Text align="CENTER">
+                                            <Font family="outfit" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                                <Template>+1d %s/%s°<Parameter expression="[WEATHER.DAYS.1.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.1.TEMPERATURE_LOW]" /></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                    <PartText x="185" y="0" width="110" height="28">
+                                        <Text align="CENTER">
+                                            <Font family="outfit" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                                <Template>+2d %s/%s°<Parameter expression="[WEATHER.DAYS.2.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.2.TEMPERATURE_LOW]" /></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                    <PartText x="302" y="0" width="110" height="28">
+                                        <Text align="CENTER">
+                                            <Font family="outfit" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                                <Template>+3d %s/%s°<Parameter expression="[WEATHER.DAYS.3.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.3.TEMPERATURE_LOW]" /></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Group>
+                            </ListOption>
+                            <ListOption id="1">
+                                <PartText x="80" y="76" width="320" height="28">
+                                    <Text align="CENTER" ellipsis="TRUE">
+                                        <Font family="outfit" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                            <Template>%s<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.CONDITION_NAME] : &quot;Načítání počasí...&quot;" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
+                            </ListOption>
+                        </ListConfiguration>
+                    </Group>
+
+                    <!-- Date -->
+                    <Group x="28" y="200" width="96" height="80">
+                        <PartText x="0" y="4" width="96" height="28">
+                            <Text align="END">
+                                <Font family="outfit" size="20" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s<Parameter expression="[DAY_OF_WEEK_S]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="0" y="34" width="96" height="28">
+                            <Text align="END">
+                                <Font family="outfit" size="19" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s.%s.<Parameter expression="[DAY]" /><Parameter expression="[MONTH]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                    </Group>
+
+                    <!-- Ghost 88:88 -->
+                    <BooleanConfiguration id="showGhost">
+                        <BooleanOption id="TRUE">
+                            <PartText x="122" y="185" width="238" height="100" alpha="65">
+                                <Variant target="alpha" value="0" mode="AMBIENT" />
+                                <Text align="CENTER">
+                                    <Font family="outfit" size="70" weight="BOLD" color="[CONFIGURATION.colorTheme.1]">
+                                        <Template>88:88</Template>
+                                    </Font>
+                                </Text>
+                            </PartText>
+                        </BooleanOption>
+                    </BooleanConfiguration>
+
+                    <!-- Main Time -->
+                    <DigitalClock x="122" y="185" width="238" height="100">
+                        <TimeText x="0" y="0" width="238" height="100" format="HH:mm" hourFormat="SYNC_TO_DEVICE" align="CENTER">
+                            <Font family="outfit" size="70" weight="BOLD" color="[CONFIGURATION.colorTheme.0]" />
+                        </TimeText>
+                    </DigitalClock>
+
+                    <!-- Seconds -->
+                    <BooleanConfiguration id="showSeconds">
+                        <BooleanOption id="TRUE">
+                            <Group x="366" y="218" width="76" height="54" alpha="255">
+                                <Variant target="alpha" value="0" mode="AMBIENT" />
+                                <DigitalClock x="0" y="0" width="76" height="54">
+                                    <TimeText x="0" y="0" width="76" height="54" format="ss" hourFormat="SYNC_TO_DEVICE" align="START">
+                                        <Font family="outfit" size="34" weight="BOLD" color="[CONFIGURATION.colorTheme.0]" />
+                                    </TimeText>
+                                </DigitalClock>
+                            </Group>
+                        </BooleanOption>
+                    </BooleanConfiguration>
+
+                    <!-- Bottom Stats Labels & Values -->
+                    <Group x="0" y="302" width="480" height="135" alpha="255">
+                        <Variant target="alpha" value="90" mode="AMBIENT" />
+                        <PartText x="74" y="0" width="90" height="22">
+                            <Text align="CENTER">
+                                <Font family="outfit" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                    <Template>BATT</Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="74" y="24" width="90" height="42">
+                            <Text align="CENTER">
+                                <Font family="outfit" size="32" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s<Parameter expression="[BATTERY_PERCENT]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+
+                        <PartText x="175" y="0" width="130" height="22">
+                            <Text align="CENTER">
+                                <Font family="outfit" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                    <Template>STEPS</Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="170" y="24" width="140" height="42">
+                            <Text align="CENTER">
+                                <Font family="outfit" size="32" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s<Parameter expression="[STEP_COUNT]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+
+                        <ListConfiguration id="rightSlot">
+                            <ListOption id="0">
+                                <Group x="316" y="0" width="90" height="68">
+                                    <PartText x="0" y="0" width="90" height="22">
+                                        <Text align="CENTER">
+                                            <Font family="outfit" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                                <Template>BPM</Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                    <PartText x="0" y="24" width="90" height="42">
+                                        <Text align="CENTER">
+                                            <Font family="outfit" size="32" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                                <Template>%s<Parameter expression="[HEART_RATE] &gt; 0 ? [HEART_RATE] : &quot;--&quot;" /></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Group>
+                            </ListOption>
+                            <ListOption id="1">
+                                <PartText x="316" y="0" width="90" height="22">
+                                    <Text align="CENTER">
+                                        <Font family="outfit" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                            <Template>GMN</Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
+                            </ListOption>
+                        </ListConfiguration>
+
+                        <PartText x="170" y="96" width="140" height="26">
+                            <Text align="CENTER">
+                                <Font family="outfit" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                    <Template>MSG %s<Parameter expression="[UNREAD_NOTIFICATION_COUNT]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                    </Group>
+                </Group>
+            </ListOption>
+            <ListOption id="2">
+                <Group x="0" y="0" width="480" height="480">
+                    <!-- Weather Text -->
+                    <Group x="0" y="42" width="480" height="125" alpha="255">
+                        <Variant target="alpha" value="0" mode="AMBIENT" />
+                        <PartText x="172" y="2" width="110" height="66">
+                            <Text align="CENTER">
+                                <Font family="space_grotesk" size="50" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE] : &quot;--&quot;" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="280" y="8" width="110" height="26">
+                            <Text align="START">
+                                <Font family="space_grotesk" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>Max %s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE_HIGH] : &quot;--&quot;" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="280" y="34" width="110" height="26">
+                            <Text align="START">
+                                <Font family="space_grotesk" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>Min %s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE_LOW] : &quot;--&quot;" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+
+                        <ListConfiguration id="weatherRow">
+                            <ListOption id="0">
+                                <Group x="0" y="76" width="480" height="28">
+                                    <PartText x="68" y="0" width="110" height="28">
+                                        <Text align="CENTER">
+                                            <Font family="space_grotesk" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                                <Template>+1d %s/%s°<Parameter expression="[WEATHER.DAYS.1.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.1.TEMPERATURE_LOW]" /></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                    <PartText x="185" y="0" width="110" height="28">
+                                        <Text align="CENTER">
+                                            <Font family="space_grotesk" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                                <Template>+2d %s/%s°<Parameter expression="[WEATHER.DAYS.2.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.2.TEMPERATURE_LOW]" /></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                    <PartText x="302" y="0" width="110" height="28">
+                                        <Text align="CENTER">
+                                            <Font family="space_grotesk" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                                <Template>+3d %s/%s°<Parameter expression="[WEATHER.DAYS.3.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.3.TEMPERATURE_LOW]" /></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Group>
+                            </ListOption>
+                            <ListOption id="1">
+                                <PartText x="80" y="76" width="320" height="28">
+                                    <Text align="CENTER" ellipsis="TRUE">
+                                        <Font family="space_grotesk" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                            <Template>%s<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.CONDITION_NAME] : &quot;Načítání počasí...&quot;" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
+                            </ListOption>
+                        </ListConfiguration>
+                    </Group>
+
+                    <!-- Date -->
+                    <Group x="28" y="200" width="96" height="80">
+                        <PartText x="0" y="4" width="96" height="28">
+                            <Text align="END">
+                                <Font family="space_grotesk" size="20" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s<Parameter expression="[DAY_OF_WEEK_S]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="0" y="34" width="96" height="28">
+                            <Text align="END">
+                                <Font family="space_grotesk" size="19" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s.%s.<Parameter expression="[DAY]" /><Parameter expression="[MONTH]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                    </Group>
+
+                    <!-- Ghost 88:88 -->
+                    <BooleanConfiguration id="showGhost">
+                        <BooleanOption id="TRUE">
+                            <PartText x="122" y="185" width="238" height="100" alpha="65">
+                                <Variant target="alpha" value="0" mode="AMBIENT" />
+                                <Text align="CENTER">
+                                    <Font family="space_grotesk" size="70" weight="BOLD" color="[CONFIGURATION.colorTheme.1]">
+                                        <Template>88:88</Template>
+                                    </Font>
+                                </Text>
+                            </PartText>
+                        </BooleanOption>
+                    </BooleanConfiguration>
+
+                    <!-- Main Time -->
+                    <DigitalClock x="122" y="185" width="238" height="100">
+                        <TimeText x="0" y="0" width="238" height="100" format="HH:mm" hourFormat="SYNC_TO_DEVICE" align="CENTER">
+                            <Font family="space_grotesk" size="70" weight="BOLD" color="[CONFIGURATION.colorTheme.0]" />
+                        </TimeText>
+                    </DigitalClock>
+
+                    <!-- Seconds -->
+                    <BooleanConfiguration id="showSeconds">
+                        <BooleanOption id="TRUE">
+                            <Group x="366" y="218" width="76" height="54" alpha="255">
+                                <Variant target="alpha" value="0" mode="AMBIENT" />
+                                <DigitalClock x="0" y="0" width="76" height="54">
+                                    <TimeText x="0" y="0" width="76" height="54" format="ss" hourFormat="SYNC_TO_DEVICE" align="START">
+                                        <Font family="space_grotesk" size="34" weight="BOLD" color="[CONFIGURATION.colorTheme.0]" />
+                                    </TimeText>
+                                </DigitalClock>
+                            </Group>
+                        </BooleanOption>
+                    </BooleanConfiguration>
+
+                    <!-- Bottom Stats Labels & Values -->
+                    <Group x="0" y="302" width="480" height="135" alpha="255">
+                        <Variant target="alpha" value="90" mode="AMBIENT" />
+                        <PartText x="74" y="0" width="90" height="22">
+                            <Text align="CENTER">
+                                <Font family="space_grotesk" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                    <Template>BATT</Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="74" y="24" width="90" height="42">
+                            <Text align="CENTER">
+                                <Font family="space_grotesk" size="32" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s<Parameter expression="[BATTERY_PERCENT]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+
+                        <PartText x="175" y="0" width="130" height="22">
+                            <Text align="CENTER">
+                                <Font family="space_grotesk" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                    <Template>STEPS</Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="170" y="24" width="140" height="42">
+                            <Text align="CENTER">
+                                <Font family="space_grotesk" size="32" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s<Parameter expression="[STEP_COUNT]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+
+                        <ListConfiguration id="rightSlot">
+                            <ListOption id="0">
+                                <Group x="316" y="0" width="90" height="68">
+                                    <PartText x="0" y="0" width="90" height="22">
+                                        <Text align="CENTER">
+                                            <Font family="space_grotesk" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                                <Template>BPM</Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                    <PartText x="0" y="24" width="90" height="42">
+                                        <Text align="CENTER">
+                                            <Font family="space_grotesk" size="32" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                                <Template>%s<Parameter expression="[HEART_RATE] &gt; 0 ? [HEART_RATE] : &quot;--&quot;" /></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Group>
+                            </ListOption>
+                            <ListOption id="1">
+                                <PartText x="316" y="0" width="90" height="22">
+                                    <Text align="CENTER">
+                                        <Font family="space_grotesk" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                            <Template>GMN</Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
+                            </ListOption>
+                        </ListConfiguration>
+
+                        <PartText x="170" y="96" width="140" height="26">
+                            <Text align="CENTER">
+                                <Font family="space_grotesk" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                    <Template>MSG %s<Parameter expression="[UNREAD_NOTIFICATION_COUNT]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                    </Group>
+                </Group>
+            </ListOption>
+            <ListOption id="3">
+                <Group x="0" y="0" width="480" height="480">
+                    <!-- Weather Text -->
+                    <Group x="0" y="42" width="480" height="125" alpha="255">
+                        <Variant target="alpha" value="0" mode="AMBIENT" />
+                        <PartText x="172" y="2" width="110" height="66">
+                            <Text align="CENTER">
+                                <Font family="share_tech_mono" size="50" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE] : &quot;--&quot;" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="280" y="8" width="110" height="26">
+                            <Text align="START">
+                                <Font family="share_tech_mono" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>Max %s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE_HIGH] : &quot;--&quot;" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="280" y="34" width="110" height="26">
+                            <Text align="START">
+                                <Font family="share_tech_mono" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>Min %s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE_LOW] : &quot;--&quot;" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+
+                        <ListConfiguration id="weatherRow">
+                            <ListOption id="0">
+                                <Group x="0" y="76" width="480" height="28">
+                                    <PartText x="68" y="0" width="110" height="28">
+                                        <Text align="CENTER">
+                                            <Font family="share_tech_mono" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                                <Template>+1d %s/%s°<Parameter expression="[WEATHER.DAYS.1.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.1.TEMPERATURE_LOW]" /></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                    <PartText x="185" y="0" width="110" height="28">
+                                        <Text align="CENTER">
+                                            <Font family="share_tech_mono" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                                <Template>+2d %s/%s°<Parameter expression="[WEATHER.DAYS.2.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.2.TEMPERATURE_LOW]" /></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                    <PartText x="302" y="0" width="110" height="28">
+                                        <Text align="CENTER">
+                                            <Font family="share_tech_mono" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                                <Template>+3d %s/%s°<Parameter expression="[WEATHER.DAYS.3.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.3.TEMPERATURE_LOW]" /></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Group>
+                            </ListOption>
+                            <ListOption id="1">
+                                <PartText x="80" y="76" width="320" height="28">
+                                    <Text align="CENTER" ellipsis="TRUE">
+                                        <Font family="share_tech_mono" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                            <Template>%s<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.CONDITION_NAME] : &quot;Načítání počasí...&quot;" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
+                            </ListOption>
+                        </ListConfiguration>
+                    </Group>
+
+                    <!-- Date -->
+                    <Group x="28" y="200" width="96" height="80">
+                        <PartText x="0" y="4" width="96" height="28">
+                            <Text align="END">
+                                <Font family="share_tech_mono" size="20" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s<Parameter expression="[DAY_OF_WEEK_S]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="0" y="34" width="96" height="28">
+                            <Text align="END">
+                                <Font family="share_tech_mono" size="19" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s.%s.<Parameter expression="[DAY]" /><Parameter expression="[MONTH]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                    </Group>
+
+                    <!-- Ghost 88:88 -->
+                    <BooleanConfiguration id="showGhost">
+                        <BooleanOption id="TRUE">
+                            <PartText x="122" y="185" width="238" height="100" alpha="65">
+                                <Variant target="alpha" value="0" mode="AMBIENT" />
+                                <Text align="CENTER">
+                                    <Font family="share_tech_mono" size="70" weight="BOLD" color="[CONFIGURATION.colorTheme.1]">
+                                        <Template>88:88</Template>
+                                    </Font>
+                                </Text>
+                            </PartText>
+                        </BooleanOption>
+                    </BooleanConfiguration>
+
+                    <!-- Main Time -->
+                    <DigitalClock x="122" y="185" width="238" height="100">
+                        <TimeText x="0" y="0" width="238" height="100" format="HH:mm" hourFormat="SYNC_TO_DEVICE" align="CENTER">
+                            <Font family="share_tech_mono" size="70" weight="BOLD" color="[CONFIGURATION.colorTheme.0]" />
+                        </TimeText>
+                    </DigitalClock>
+
+                    <!-- Seconds -->
+                    <BooleanConfiguration id="showSeconds">
+                        <BooleanOption id="TRUE">
+                            <Group x="366" y="218" width="76" height="54" alpha="255">
+                                <Variant target="alpha" value="0" mode="AMBIENT" />
+                                <DigitalClock x="0" y="0" width="76" height="54">
+                                    <TimeText x="0" y="0" width="76" height="54" format="ss" hourFormat="SYNC_TO_DEVICE" align="START">
+                                        <Font family="share_tech_mono" size="34" weight="BOLD" color="[CONFIGURATION.colorTheme.0]" />
+                                    </TimeText>
+                                </DigitalClock>
+                            </Group>
+                        </BooleanOption>
+                    </BooleanConfiguration>
+
+                    <!-- Bottom Stats Labels & Values -->
+                    <Group x="0" y="302" width="480" height="135" alpha="255">
+                        <Variant target="alpha" value="90" mode="AMBIENT" />
+                        <PartText x="74" y="0" width="90" height="22">
+                            <Text align="CENTER">
+                                <Font family="share_tech_mono" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                    <Template>BATT</Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="74" y="24" width="90" height="42">
+                            <Text align="CENTER">
+                                <Font family="share_tech_mono" size="32" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s<Parameter expression="[BATTERY_PERCENT]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+
+                        <PartText x="175" y="0" width="130" height="22">
+                            <Text align="CENTER">
+                                <Font family="share_tech_mono" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                    <Template>STEPS</Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="170" y="24" width="140" height="42">
+                            <Text align="CENTER">
+                                <Font family="share_tech_mono" size="32" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s<Parameter expression="[STEP_COUNT]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+
+                        <ListConfiguration id="rightSlot">
+                            <ListOption id="0">
+                                <Group x="316" y="0" width="90" height="68">
+                                    <PartText x="0" y="0" width="90" height="22">
+                                        <Text align="CENTER">
+                                            <Font family="share_tech_mono" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                                <Template>BPM</Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                    <PartText x="0" y="24" width="90" height="42">
+                                        <Text align="CENTER">
+                                            <Font family="share_tech_mono" size="32" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                                <Template>%s<Parameter expression="[HEART_RATE] &gt; 0 ? [HEART_RATE] : &quot;--&quot;" /></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Group>
+                            </ListOption>
+                            <ListOption id="1">
+                                <PartText x="316" y="0" width="90" height="22">
+                                    <Text align="CENTER">
+                                        <Font family="share_tech_mono" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                            <Template>GMN</Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
+                            </ListOption>
+                        </ListConfiguration>
+
+                        <PartText x="170" y="96" width="140" height="26">
+                            <Text align="CENTER">
+                                <Font family="share_tech_mono" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                    <Template>MSG %s<Parameter expression="[UNREAD_NOTIFICATION_COUNT]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                    </Group>
+                </Group>
+            </ListOption>
+            <ListOption id="4">
+                <Group x="0" y="0" width="480" height="480">
+                    <!-- Weather Text -->
+                    <Group x="0" y="42" width="480" height="125" alpha="255">
+                        <Variant target="alpha" value="0" mode="AMBIENT" />
+                        <PartText x="172" y="2" width="110" height="66">
+                            <Text align="CENTER">
+                                <Font family="SYNC_TO_DEVICE" size="50" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE] : &quot;--&quot;" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="280" y="8" width="110" height="26">
+                            <Text align="START">
+                                <Font family="SYNC_TO_DEVICE" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>Max %s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE_HIGH] : &quot;--&quot;" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="280" y="34" width="110" height="26">
+                            <Text align="START">
+                                <Font family="SYNC_TO_DEVICE" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>Min %s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE_LOW] : &quot;--&quot;" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+
+                        <ListConfiguration id="weatherRow">
+                            <ListOption id="0">
+                                <Group x="0" y="76" width="480" height="28">
+                                    <PartText x="68" y="0" width="110" height="28">
+                                        <Text align="CENTER">
+                                            <Font family="SYNC_TO_DEVICE" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                                <Template>+1d %s/%s°<Parameter expression="[WEATHER.DAYS.1.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.1.TEMPERATURE_LOW]" /></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                    <PartText x="185" y="0" width="110" height="28">
+                                        <Text align="CENTER">
+                                            <Font family="SYNC_TO_DEVICE" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                                <Template>+2d %s/%s°<Parameter expression="[WEATHER.DAYS.2.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.2.TEMPERATURE_LOW]" /></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                    <PartText x="302" y="0" width="110" height="28">
+                                        <Text align="CENTER">
+                                            <Font family="SYNC_TO_DEVICE" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                                <Template>+3d %s/%s°<Parameter expression="[WEATHER.DAYS.3.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.3.TEMPERATURE_LOW]" /></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Group>
+                            </ListOption>
+                            <ListOption id="1">
+                                <PartText x="80" y="76" width="320" height="28">
+                                    <Text align="CENTER" ellipsis="TRUE">
+                                        <Font family="SYNC_TO_DEVICE" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                            <Template>%s<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.CONDITION_NAME] : &quot;Načítání počasí...&quot;" /></Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
+                            </ListOption>
+                        </ListConfiguration>
+                    </Group>
+
+                    <!-- Date -->
+                    <Group x="28" y="200" width="96" height="80">
+                        <PartText x="0" y="4" width="96" height="28">
+                            <Text align="END">
+                                <Font family="SYNC_TO_DEVICE" size="20" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s<Parameter expression="[DAY_OF_WEEK_S]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="0" y="34" width="96" height="28">
+                            <Text align="END">
+                                <Font family="SYNC_TO_DEVICE" size="19" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s.%s.<Parameter expression="[DAY]" /><Parameter expression="[MONTH]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                    </Group>
+
+                    <!-- Ghost 88:88 -->
+                    <BooleanConfiguration id="showGhost">
+                        <BooleanOption id="TRUE">
+                            <PartText x="122" y="185" width="238" height="100" alpha="65">
+                                <Variant target="alpha" value="0" mode="AMBIENT" />
+                                <Text align="CENTER">
+                                    <Font family="SYNC_TO_DEVICE" size="70" weight="BOLD" color="[CONFIGURATION.colorTheme.1]">
+                                        <Template>88:88</Template>
+                                    </Font>
+                                </Text>
+                            </PartText>
+                        </BooleanOption>
+                    </BooleanConfiguration>
+
+                    <!-- Main Time -->
+                    <DigitalClock x="122" y="185" width="238" height="100">
+                        <TimeText x="0" y="0" width="238" height="100" format="HH:mm" hourFormat="SYNC_TO_DEVICE" align="CENTER">
+                            <Font family="SYNC_TO_DEVICE" size="70" weight="BOLD" color="[CONFIGURATION.colorTheme.0]" />
+                        </TimeText>
+                    </DigitalClock>
+
+                    <!-- Seconds -->
+                    <BooleanConfiguration id="showSeconds">
+                        <BooleanOption id="TRUE">
+                            <Group x="366" y="218" width="76" height="54" alpha="255">
+                                <Variant target="alpha" value="0" mode="AMBIENT" />
+                                <DigitalClock x="0" y="0" width="76" height="54">
+                                    <TimeText x="0" y="0" width="76" height="54" format="ss" hourFormat="SYNC_TO_DEVICE" align="START">
+                                        <Font family="SYNC_TO_DEVICE" size="34" weight="BOLD" color="[CONFIGURATION.colorTheme.0]" />
+                                    </TimeText>
+                                </DigitalClock>
+                            </Group>
+                        </BooleanOption>
+                    </BooleanConfiguration>
+
+                    <!-- Bottom Stats Labels & Values -->
+                    <Group x="0" y="302" width="480" height="135" alpha="255">
+                        <Variant target="alpha" value="90" mode="AMBIENT" />
+                        <PartText x="74" y="0" width="90" height="22">
+                            <Text align="CENTER">
+                                <Font family="SYNC_TO_DEVICE" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                    <Template>BATT</Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="74" y="24" width="90" height="42">
+                            <Text align="CENTER">
+                                <Font family="SYNC_TO_DEVICE" size="32" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s<Parameter expression="[BATTERY_PERCENT]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+
+                        <PartText x="175" y="0" width="130" height="22">
+                            <Text align="CENTER">
+                                <Font family="SYNC_TO_DEVICE" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                    <Template>STEPS</Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                        <PartText x="170" y="24" width="140" height="42">
+                            <Text align="CENTER">
+                                <Font family="SYNC_TO_DEVICE" size="32" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                    <Template>%s<Parameter expression="[STEP_COUNT]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+
+                        <ListConfiguration id="rightSlot">
+                            <ListOption id="0">
+                                <Group x="316" y="0" width="90" height="68">
+                                    <PartText x="0" y="0" width="90" height="22">
+                                        <Text align="CENTER">
+                                            <Font family="SYNC_TO_DEVICE" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                                <Template>BPM</Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                    <PartText x="0" y="24" width="90" height="42">
+                                        <Text align="CENTER">
+                                            <Font family="SYNC_TO_DEVICE" size="32" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                                                <Template>%s<Parameter expression="[HEART_RATE] &gt; 0 ? [HEART_RATE] : &quot;--&quot;" /></Template>
+                                            </Font>
+                                        </Text>
+                                    </PartText>
+                                </Group>
+                            </ListOption>
+                            <ListOption id="1">
+                                <PartText x="316" y="0" width="90" height="22">
+                                    <Text align="CENTER">
+                                        <Font family="SYNC_TO_DEVICE" size="15" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                            <Template>GMN</Template>
+                                        </Font>
+                                    </Text>
+                                </PartText>
+                            </ListOption>
+                        </ListConfiguration>
+
+                        <PartText x="170" y="96" width="140" height="26">
+                            <Text align="CENTER">
+                                <Font family="SYNC_TO_DEVICE" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.1]">
+                                    <Template>MSG %s<Parameter expression="[UNREAD_NOTIFICATION_COUNT]" /></Template>
+                                </Font>
+                            </Text>
+                        </PartText>
+                    </Group>
+                </Group>
+            </ListOption>
+        </ListConfiguration>
+
+        <!-- LCD Raster Overlay -->
+        <BooleanConfiguration id="showRaster">
+            <BooleanOption id="TRUE">
                 <PartImage x="0" y="0" width="480" height="480" alpha="160">
                     <Variant target="alpha" value="0" mode="AMBIENT" />
                     <Image resource="lcd_raster" />
                 </PartImage>
-            </Compare>
-        </Condition>
+            </BooleanOption>
+        </BooleanConfiguration>
     </Scene>
 </WatchFace>
