@@ -5,11 +5,11 @@
     <Metadata key="STEP_GOAL" value="10000" />
 
     <UserConfigurations>
-        <ColorConfiguration id="colorTheme" displayName="cfg_color_label" defaultValue="amber">
-            <ColorOption id="white" displayName="cfg_color_white" colors="#FFFFFFFF #FF555555" />
-            <ColorOption id="green" displayName="cfg_color_green" colors="#FF4ADE80 #FF164E2E" />
-            <ColorOption id="amber" displayName="cfg_color_amber" colors="#FFFFB03B #FF5C3D12" />
-            <ColorOption id="cyan" displayName="cfg_color_cyan" colors="#FF38BDF8 #FF134763" />
+        <ColorConfiguration id="colorTheme" displayName="cfg_color_label" defaultValue="0">
+            <ColorOption id="0" displayName="cfg_color_amber" colors="#FFFFB03B #FF5C3D12" />
+            <ColorOption id="1" displayName="cfg_color_white" colors="#FFFFFFFF #FF555555" />
+            <ColorOption id="2" displayName="cfg_color_green" colors="#FF4ADE80 #FF164E2E" />
+            <ColorOption id="3" displayName="cfg_color_cyan" colors="#FF38BDF8 #FF134763" />
         </ColorConfiguration>
 
         <ListConfiguration id="fontChoice" displayName="cfg_font_label" defaultValue="0">
@@ -357,6 +357,9 @@
         </Condition>
 
         <ListConfiguration id="secondsRing">
+            <ListOption id="0">
+                <Group x="0" y="0" width="1" height="1" alpha="0" />
+            </ListOption>
             <ListOption id="1">
                 <Group x="0" y="0" width="480" height="480" alpha="255">
                     <Variant target="alpha" value="0" mode="AMBIENT" />
@@ -742,22 +745,28 @@
             </ListOption>
         </ListConfiguration>
         <!-- Weather Complication Slot (Top) -->
-        <ComplicationSlot x="90" y="42" width="300" height="80" slotId="0" supportedTypes="SHORT_TEXT RANGED_VALUE MONOCHROMATIC_IMAGE SMALL_IMAGE" isCustomizable="TRUE">
+        <ComplicationSlot x="90" y="42" width="300" height="84" slotId="0" supportedTypes="SHORT_TEXT RANGED_VALUE MONOCHROMATIC_IMAGE SMALL_IMAGE" isCustomizable="TRUE">
             <DefaultProviderPolicy defaultSystemProvider="DAY_AND_DATE" defaultSystemProviderType="SHORT_TEXT" />
-            <BoundingBox x="0" y="0" width="300" height="80" />
+            <BoundingBox x="0" y="0" width="300" height="84" />
             <Complication type="SHORT_TEXT">
-                <PartText x="0" y="10" width="300" height="60">
-                    <Text align="CENTER">
-                        <Font family="SYNC_TO_DEVICE" size="36" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                <PartImage x="56" y="16" width="48" height="48" tintColor="[CONFIGURATION.colorTheme.0]">
+                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                </PartImage>
+                <PartText x="116" y="10" width="140" height="60">
+                    <Text align="START">
+                        <Font family="SYNC_TO_DEVICE" size="42" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
                         </Font>
                     </Text>
                 </PartText>
             </Complication>
             <Complication type="RANGED_VALUE">
-                <PartText x="0" y="10" width="300" height="60">
-                    <Text align="CENTER">
-                        <Font family="SYNC_TO_DEVICE" size="36" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                <PartImage x="56" y="16" width="48" height="48" tintColor="[CONFIGURATION.colorTheme.0]">
+                    <Image resource="[COMPLICATION.MONOCHROMATIC_IMAGE]" />
+                </PartImage>
+                <PartText x="116" y="10" width="140" height="60">
+                    <Text align="START">
+                        <Font family="SYNC_TO_DEVICE" size="42" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
                             <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
                         </Font>
                     </Text>
@@ -926,7 +935,7 @@
 
                     <!-- Main Time -->
                     <DigitalClock x="122" y="185" width="238" height="100">
-                        <TimeText x="0" y="0" width="238" height="100" format="HH:mm" hourFormat="SYNC_TO_DEVICE" align="CENTER">
+                        <TimeText x="0" y="0" width="238" height="100" format="hh:mm" hourFormat="SYNC_TO_DEVICE" align="CENTER">
                             <Font family="orbitron" size="70" weight="BOLD" color="[CONFIGURATION.colorTheme.0]" />
                         </TimeText>
                     </DigitalClock>
@@ -1054,7 +1063,7 @@
 
                     <!-- Main Time -->
                     <DigitalClock x="122" y="185" width="238" height="100">
-                        <TimeText x="0" y="0" width="238" height="100" format="HH:mm" hourFormat="SYNC_TO_DEVICE" align="CENTER">
+                        <TimeText x="0" y="0" width="238" height="100" format="hh:mm" hourFormat="SYNC_TO_DEVICE" align="CENTER">
                             <Font family="outfit" size="70" weight="BOLD" color="[CONFIGURATION.colorTheme.0]" />
                         </TimeText>
                     </DigitalClock>
@@ -1182,7 +1191,7 @@
 
                     <!-- Main Time -->
                     <DigitalClock x="122" y="185" width="238" height="100">
-                        <TimeText x="0" y="0" width="238" height="100" format="HH:mm" hourFormat="SYNC_TO_DEVICE" align="CENTER">
+                        <TimeText x="0" y="0" width="238" height="100" format="hh:mm" hourFormat="SYNC_TO_DEVICE" align="CENTER">
                             <Font family="space_grotesk" size="70" weight="BOLD" color="[CONFIGURATION.colorTheme.0]" />
                         </TimeText>
                     </DigitalClock>
@@ -1310,7 +1319,7 @@
 
                     <!-- Main Time -->
                     <DigitalClock x="122" y="185" width="238" height="100">
-                        <TimeText x="0" y="0" width="238" height="100" format="HH:mm" hourFormat="SYNC_TO_DEVICE" align="CENTER">
+                        <TimeText x="0" y="0" width="238" height="100" format="hh:mm" hourFormat="SYNC_TO_DEVICE" align="CENTER">
                             <Font family="share_tech_mono" size="70" weight="BOLD" color="[CONFIGURATION.colorTheme.0]" />
                         </TimeText>
                     </DigitalClock>
@@ -1438,7 +1447,7 @@
 
                     <!-- Main Time -->
                     <DigitalClock x="122" y="185" width="238" height="100">
-                        <TimeText x="0" y="0" width="238" height="100" format="HH:mm" hourFormat="SYNC_TO_DEVICE" align="CENTER">
+                        <TimeText x="0" y="0" width="238" height="100" format="hh:mm" hourFormat="SYNC_TO_DEVICE" align="CENTER">
                             <Font family="SYNC_TO_DEVICE" size="70" weight="BOLD" color="[CONFIGURATION.colorTheme.0]" />
                         </TimeText>
                     </DigitalClock>
