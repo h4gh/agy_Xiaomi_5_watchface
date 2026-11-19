@@ -24,6 +24,13 @@ jobs:
         with:
           gradle-version: '8.10.2'
 
+      - name: Validate watchface.xml with Google WFF Validator
+        run: |
+          git clone --depth 1 --filter=blob:none --sparse https://github.com/google/watchface.git /tmp/wff
+          git -C /tmp/wff sparse-checkout set third_party/wff
+          (cd /tmp/wff/third_party/wff && ./gradlew :specification:validator:executable-jar --no-daemon)
+          java -jar /tmp/wff/third_party/wff/specification/validator/build/libs/wff-validator.jar 2 watchface/src/main/res/raw/watchface.xml
+
       - name: Build Watch Face APK
         run: gradle :watchface:assembleDebug --no-daemon
 
