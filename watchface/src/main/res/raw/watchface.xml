@@ -741,49 +741,30 @@
                 </PartDraw>
             </ListOption>
         </ListConfiguration>
-        <!-- Weather Icon -->
-        <Group x="0" y="42" width="480" height="72" alpha="255">
-            <Variant target="alpha" value="0" mode="AMBIENT" />
-            <Condition>
-                <Expressions>
-                    <Expression name="isClear">[WEATHER.CONDITION] == 1</Expression>
-                    <Expression name="isPartly">[WEATHER.CONDITION] == 2 || [WEATHER.CONDITION] == 3</Expression>
-                    <Expression name="isRain">[WEATHER.CONDITION] == 4 || [WEATHER.CONDITION] == 5 || [WEATHER.CONDITION] == 9</Expression>
-                    <Expression name="isSnow">[WEATHER.CONDITION] == 6 || [WEATHER.CONDITION] == 7</Expression>
-                    <Expression name="isStorm">[WEATHER.CONDITION] == 8 || [WEATHER.CONDITION] == 10</Expression>
-                </Expressions>
-                <Compare expression="isClear">
-                    <PartImage x="108" y="8" width="52" height="52" tintColor="[CONFIGURATION.colorTheme.0]">
-                        <Image resource="ic_weather_clear" />
-                    </PartImage>
-                </Compare>
-                <Compare expression="isPartly">
-                    <PartImage x="108" y="8" width="52" height="52" tintColor="[CONFIGURATION.colorTheme.0]">
-                        <Image resource="ic_weather_partly" />
-                    </PartImage>
-                </Compare>
-                <Compare expression="isRain">
-                    <PartImage x="108" y="8" width="52" height="52" tintColor="[CONFIGURATION.colorTheme.0]">
-                        <Image resource="ic_weather_rain" />
-                    </PartImage>
-                </Compare>
-                <Compare expression="isSnow">
-                    <PartImage x="108" y="8" width="52" height="52" tintColor="[CONFIGURATION.colorTheme.0]">
-                        <Image resource="ic_weather_snow" />
-                    </PartImage>
-                </Compare>
-                <Compare expression="isStorm">
-                    <PartImage x="108" y="8" width="52" height="52" tintColor="[CONFIGURATION.colorTheme.0]">
-                        <Image resource="ic_weather_storm" />
-                    </PartImage>
-                </Compare>
-                <Default>
-                    <PartImage x="108" y="8" width="52" height="52" tintColor="[CONFIGURATION.colorTheme.0]">
-                        <Image resource="ic_weather_cloudy" />
-                    </PartImage>
-                </Default>
-            </Condition>
-        </Group>
+        <!-- Weather Complication Slot (Top) -->
+        <ComplicationSlot x="90" y="42" width="300" height="80" slotId="0" supportedTypes="SHORT_TEXT RANGED_VALUE MONOCHROMATIC_IMAGE SMALL_IMAGE" isCustomizable="TRUE">
+            <DefaultProviderPolicy defaultSystemProvider="DAY_AND_DATE" defaultSystemProviderType="SHORT_TEXT" />
+            <BoundingBox x="0" y="0" width="300" height="80" />
+            <Complication type="SHORT_TEXT">
+                <PartText x="0" y="10" width="300" height="60">
+                    <Text align="CENTER">
+                        <Font family="SYNC_TO_DEVICE" size="36" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                        </Font>
+                    </Text>
+                </PartText>
+            </Complication>
+            <Complication type="RANGED_VALUE">
+                <PartText x="0" y="10" width="300" height="60">
+                    <Text align="CENTER">
+                        <Font family="SYNC_TO_DEVICE" size="36" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
+                            <Template>%s<Parameter expression="[COMPLICATION.TEXT]" /></Template>
+                        </Font>
+                    </Text>
+                </PartText>
+            </Complication>
+        </ComplicationSlot>
+
         <!-- 10x10% Step Goal Progress Bar -->
         <Group x="166" y="374" width="148" height="10" alpha="255">
             <Variant target="alpha" value="90" mode="AMBIENT" />
@@ -911,69 +892,6 @@
         <ListConfiguration id="fontChoice">
             <ListOption id="0">
                 <Group x="0" y="0" width="480" height="480">
-                    <!-- Weather Text -->
-                    <Group x="0" y="42" width="480" height="125" alpha="255">
-                        <Variant target="alpha" value="0" mode="AMBIENT" />
-                        <PartText x="172" y="2" width="110" height="66">
-                            <Text align="CENTER">
-                                <Font family="orbitron" size="50" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
-                                    <Template>%s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE] : &quot;--&quot;" /></Template>
-                                </Font>
-                            </Text>
-                        </PartText>
-                        <PartText x="280" y="8" width="110" height="26">
-                            <Text align="START">
-                                <Font family="orbitron" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                    <Template>Max %s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE_HIGH] : &quot;--&quot;" /></Template>
-                                </Font>
-                            </Text>
-                        </PartText>
-                        <PartText x="280" y="34" width="110" height="26">
-                            <Text align="START">
-                                <Font family="orbitron" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                    <Template>Min %s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE_LOW] : &quot;--&quot;" /></Template>
-                                </Font>
-                            </Text>
-                        </PartText>
-
-                        <ListConfiguration id="weatherRow">
-                            <ListOption id="0">
-                                <Group x="0" y="76" width="480" height="28">
-                                    <PartText x="68" y="0" width="110" height="28">
-                                        <Text align="CENTER">
-                                            <Font family="orbitron" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                                <Template>+1d %s/%s°<Parameter expression="[WEATHER.DAYS.1.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.1.TEMPERATURE_LOW]" /></Template>
-                                            </Font>
-                                        </Text>
-                                    </PartText>
-                                    <PartText x="185" y="0" width="110" height="28">
-                                        <Text align="CENTER">
-                                            <Font family="orbitron" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                                <Template>+2d %s/%s°<Parameter expression="[WEATHER.DAYS.2.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.2.TEMPERATURE_LOW]" /></Template>
-                                            </Font>
-                                        </Text>
-                                    </PartText>
-                                    <PartText x="302" y="0" width="110" height="28">
-                                        <Text align="CENTER">
-                                            <Font family="orbitron" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                                <Template>+3d %s/%s°<Parameter expression="[WEATHER.DAYS.3.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.3.TEMPERATURE_LOW]" /></Template>
-                                            </Font>
-                                        </Text>
-                                    </PartText>
-                                </Group>
-                            </ListOption>
-                            <ListOption id="1">
-                                <PartText x="80" y="76" width="320" height="28">
-                                    <Text align="CENTER" ellipsis="TRUE">
-                                        <Font family="orbitron" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                            <Template>%s<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.CONDITION_NAME] : &quot;Načítání počasí...&quot;" /></Template>
-                                        </Font>
-                                    </Text>
-                                </PartText>
-                            </ListOption>
-                        </ListConfiguration>
-                    </Group>
-
                     <!-- Date -->
                     <Group x="28" y="200" width="96" height="80">
                         <PartText x="0" y="4" width="96" height="28">
@@ -1102,69 +1020,6 @@
             </ListOption>
             <ListOption id="1">
                 <Group x="0" y="0" width="480" height="480">
-                    <!-- Weather Text -->
-                    <Group x="0" y="42" width="480" height="125" alpha="255">
-                        <Variant target="alpha" value="0" mode="AMBIENT" />
-                        <PartText x="172" y="2" width="110" height="66">
-                            <Text align="CENTER">
-                                <Font family="outfit" size="50" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
-                                    <Template>%s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE] : &quot;--&quot;" /></Template>
-                                </Font>
-                            </Text>
-                        </PartText>
-                        <PartText x="280" y="8" width="110" height="26">
-                            <Text align="START">
-                                <Font family="outfit" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                    <Template>Max %s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE_HIGH] : &quot;--&quot;" /></Template>
-                                </Font>
-                            </Text>
-                        </PartText>
-                        <PartText x="280" y="34" width="110" height="26">
-                            <Text align="START">
-                                <Font family="outfit" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                    <Template>Min %s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE_LOW] : &quot;--&quot;" /></Template>
-                                </Font>
-                            </Text>
-                        </PartText>
-
-                        <ListConfiguration id="weatherRow">
-                            <ListOption id="0">
-                                <Group x="0" y="76" width="480" height="28">
-                                    <PartText x="68" y="0" width="110" height="28">
-                                        <Text align="CENTER">
-                                            <Font family="outfit" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                                <Template>+1d %s/%s°<Parameter expression="[WEATHER.DAYS.1.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.1.TEMPERATURE_LOW]" /></Template>
-                                            </Font>
-                                        </Text>
-                                    </PartText>
-                                    <PartText x="185" y="0" width="110" height="28">
-                                        <Text align="CENTER">
-                                            <Font family="outfit" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                                <Template>+2d %s/%s°<Parameter expression="[WEATHER.DAYS.2.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.2.TEMPERATURE_LOW]" /></Template>
-                                            </Font>
-                                        </Text>
-                                    </PartText>
-                                    <PartText x="302" y="0" width="110" height="28">
-                                        <Text align="CENTER">
-                                            <Font family="outfit" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                                <Template>+3d %s/%s°<Parameter expression="[WEATHER.DAYS.3.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.3.TEMPERATURE_LOW]" /></Template>
-                                            </Font>
-                                        </Text>
-                                    </PartText>
-                                </Group>
-                            </ListOption>
-                            <ListOption id="1">
-                                <PartText x="80" y="76" width="320" height="28">
-                                    <Text align="CENTER" ellipsis="TRUE">
-                                        <Font family="outfit" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                            <Template>%s<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.CONDITION_NAME] : &quot;Načítání počasí...&quot;" /></Template>
-                                        </Font>
-                                    </Text>
-                                </PartText>
-                            </ListOption>
-                        </ListConfiguration>
-                    </Group>
-
                     <!-- Date -->
                     <Group x="28" y="200" width="96" height="80">
                         <PartText x="0" y="4" width="96" height="28">
@@ -1293,69 +1148,6 @@
             </ListOption>
             <ListOption id="2">
                 <Group x="0" y="0" width="480" height="480">
-                    <!-- Weather Text -->
-                    <Group x="0" y="42" width="480" height="125" alpha="255">
-                        <Variant target="alpha" value="0" mode="AMBIENT" />
-                        <PartText x="172" y="2" width="110" height="66">
-                            <Text align="CENTER">
-                                <Font family="space_grotesk" size="50" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
-                                    <Template>%s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE] : &quot;--&quot;" /></Template>
-                                </Font>
-                            </Text>
-                        </PartText>
-                        <PartText x="280" y="8" width="110" height="26">
-                            <Text align="START">
-                                <Font family="space_grotesk" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                    <Template>Max %s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE_HIGH] : &quot;--&quot;" /></Template>
-                                </Font>
-                            </Text>
-                        </PartText>
-                        <PartText x="280" y="34" width="110" height="26">
-                            <Text align="START">
-                                <Font family="space_grotesk" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                    <Template>Min %s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE_LOW] : &quot;--&quot;" /></Template>
-                                </Font>
-                            </Text>
-                        </PartText>
-
-                        <ListConfiguration id="weatherRow">
-                            <ListOption id="0">
-                                <Group x="0" y="76" width="480" height="28">
-                                    <PartText x="68" y="0" width="110" height="28">
-                                        <Text align="CENTER">
-                                            <Font family="space_grotesk" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                                <Template>+1d %s/%s°<Parameter expression="[WEATHER.DAYS.1.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.1.TEMPERATURE_LOW]" /></Template>
-                                            </Font>
-                                        </Text>
-                                    </PartText>
-                                    <PartText x="185" y="0" width="110" height="28">
-                                        <Text align="CENTER">
-                                            <Font family="space_grotesk" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                                <Template>+2d %s/%s°<Parameter expression="[WEATHER.DAYS.2.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.2.TEMPERATURE_LOW]" /></Template>
-                                            </Font>
-                                        </Text>
-                                    </PartText>
-                                    <PartText x="302" y="0" width="110" height="28">
-                                        <Text align="CENTER">
-                                            <Font family="space_grotesk" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                                <Template>+3d %s/%s°<Parameter expression="[WEATHER.DAYS.3.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.3.TEMPERATURE_LOW]" /></Template>
-                                            </Font>
-                                        </Text>
-                                    </PartText>
-                                </Group>
-                            </ListOption>
-                            <ListOption id="1">
-                                <PartText x="80" y="76" width="320" height="28">
-                                    <Text align="CENTER" ellipsis="TRUE">
-                                        <Font family="space_grotesk" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                            <Template>%s<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.CONDITION_NAME] : &quot;Načítání počasí...&quot;" /></Template>
-                                        </Font>
-                                    </Text>
-                                </PartText>
-                            </ListOption>
-                        </ListConfiguration>
-                    </Group>
-
                     <!-- Date -->
                     <Group x="28" y="200" width="96" height="80">
                         <PartText x="0" y="4" width="96" height="28">
@@ -1484,69 +1276,6 @@
             </ListOption>
             <ListOption id="3">
                 <Group x="0" y="0" width="480" height="480">
-                    <!-- Weather Text -->
-                    <Group x="0" y="42" width="480" height="125" alpha="255">
-                        <Variant target="alpha" value="0" mode="AMBIENT" />
-                        <PartText x="172" y="2" width="110" height="66">
-                            <Text align="CENTER">
-                                <Font family="share_tech_mono" size="50" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
-                                    <Template>%s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE] : &quot;--&quot;" /></Template>
-                                </Font>
-                            </Text>
-                        </PartText>
-                        <PartText x="280" y="8" width="110" height="26">
-                            <Text align="START">
-                                <Font family="share_tech_mono" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                    <Template>Max %s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE_HIGH] : &quot;--&quot;" /></Template>
-                                </Font>
-                            </Text>
-                        </PartText>
-                        <PartText x="280" y="34" width="110" height="26">
-                            <Text align="START">
-                                <Font family="share_tech_mono" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                    <Template>Min %s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE_LOW] : &quot;--&quot;" /></Template>
-                                </Font>
-                            </Text>
-                        </PartText>
-
-                        <ListConfiguration id="weatherRow">
-                            <ListOption id="0">
-                                <Group x="0" y="76" width="480" height="28">
-                                    <PartText x="68" y="0" width="110" height="28">
-                                        <Text align="CENTER">
-                                            <Font family="share_tech_mono" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                                <Template>+1d %s/%s°<Parameter expression="[WEATHER.DAYS.1.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.1.TEMPERATURE_LOW]" /></Template>
-                                            </Font>
-                                        </Text>
-                                    </PartText>
-                                    <PartText x="185" y="0" width="110" height="28">
-                                        <Text align="CENTER">
-                                            <Font family="share_tech_mono" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                                <Template>+2d %s/%s°<Parameter expression="[WEATHER.DAYS.2.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.2.TEMPERATURE_LOW]" /></Template>
-                                            </Font>
-                                        </Text>
-                                    </PartText>
-                                    <PartText x="302" y="0" width="110" height="28">
-                                        <Text align="CENTER">
-                                            <Font family="share_tech_mono" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                                <Template>+3d %s/%s°<Parameter expression="[WEATHER.DAYS.3.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.3.TEMPERATURE_LOW]" /></Template>
-                                            </Font>
-                                        </Text>
-                                    </PartText>
-                                </Group>
-                            </ListOption>
-                            <ListOption id="1">
-                                <PartText x="80" y="76" width="320" height="28">
-                                    <Text align="CENTER" ellipsis="TRUE">
-                                        <Font family="share_tech_mono" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                            <Template>%s<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.CONDITION_NAME] : &quot;Načítání počasí...&quot;" /></Template>
-                                        </Font>
-                                    </Text>
-                                </PartText>
-                            </ListOption>
-                        </ListConfiguration>
-                    </Group>
-
                     <!-- Date -->
                     <Group x="28" y="200" width="96" height="80">
                         <PartText x="0" y="4" width="96" height="28">
@@ -1675,69 +1404,6 @@
             </ListOption>
             <ListOption id="4">
                 <Group x="0" y="0" width="480" height="480">
-                    <!-- Weather Text -->
-                    <Group x="0" y="42" width="480" height="125" alpha="255">
-                        <Variant target="alpha" value="0" mode="AMBIENT" />
-                        <PartText x="172" y="2" width="110" height="66">
-                            <Text align="CENTER">
-                                <Font family="SYNC_TO_DEVICE" size="50" weight="BOLD" color="[CONFIGURATION.colorTheme.0]">
-                                    <Template>%s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE] : &quot;--&quot;" /></Template>
-                                </Font>
-                            </Text>
-                        </PartText>
-                        <PartText x="280" y="8" width="110" height="26">
-                            <Text align="START">
-                                <Font family="SYNC_TO_DEVICE" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                    <Template>Max %s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE_HIGH] : &quot;--&quot;" /></Template>
-                                </Font>
-                            </Text>
-                        </PartText>
-                        <PartText x="280" y="34" width="110" height="26">
-                            <Text align="START">
-                                <Font family="SYNC_TO_DEVICE" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                    <Template>Min %s°<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.TEMPERATURE_LOW] : &quot;--&quot;" /></Template>
-                                </Font>
-                            </Text>
-                        </PartText>
-
-                        <ListConfiguration id="weatherRow">
-                            <ListOption id="0">
-                                <Group x="0" y="76" width="480" height="28">
-                                    <PartText x="68" y="0" width="110" height="28">
-                                        <Text align="CENTER">
-                                            <Font family="SYNC_TO_DEVICE" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                                <Template>+1d %s/%s°<Parameter expression="[WEATHER.DAYS.1.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.1.TEMPERATURE_LOW]" /></Template>
-                                            </Font>
-                                        </Text>
-                                    </PartText>
-                                    <PartText x="185" y="0" width="110" height="28">
-                                        <Text align="CENTER">
-                                            <Font family="SYNC_TO_DEVICE" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                                <Template>+2d %s/%s°<Parameter expression="[WEATHER.DAYS.2.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.2.TEMPERATURE_LOW]" /></Template>
-                                            </Font>
-                                        </Text>
-                                    </PartText>
-                                    <PartText x="302" y="0" width="110" height="28">
-                                        <Text align="CENTER">
-                                            <Font family="SYNC_TO_DEVICE" size="16" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                                <Template>+3d %s/%s°<Parameter expression="[WEATHER.DAYS.3.TEMPERATURE_HIGH]" /><Parameter expression="[WEATHER.DAYS.3.TEMPERATURE_LOW]" /></Template>
-                                            </Font>
-                                        </Text>
-                                    </PartText>
-                                </Group>
-                            </ListOption>
-                            <ListOption id="1">
-                                <PartText x="80" y="76" width="320" height="28">
-                                    <Text align="CENTER" ellipsis="TRUE">
-                                        <Font family="SYNC_TO_DEVICE" size="18" weight="NORMAL" color="[CONFIGURATION.colorTheme.0]">
-                                            <Template>%s<Parameter expression="[WEATHER.IS_AVAILABLE] ? [WEATHER.CONDITION_NAME] : &quot;Načítání počasí...&quot;" /></Template>
-                                        </Font>
-                                    </Text>
-                                </PartText>
-                            </ListOption>
-                        </ListConfiguration>
-                    </Group>
-
                     <!-- Date -->
                     <Group x="28" y="200" width="96" height="80">
                         <PartText x="0" y="4" width="96" height="28">
